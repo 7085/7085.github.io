@@ -5,7 +5,7 @@
     <title>test</title>
   </head>
   <body>
-  <img id="secret" src="http://localhost:8080/secret" onload="console.log('loaded')" onerror="console.log('error')">
+  <!--<img id="secret" src="http://localhost:8080/secret" onload="console.log('loaded')" onerror="console.log('error')">-->
     <script>
 function sendrequ(payload){
   	var img = document.createElement('img');
@@ -19,7 +19,7 @@ var req = new XMLHttpRequest();
 }
 function g1(){
 	var r = new XMLHttpRequest();
-	r.open('GET', '/secret', true);
+	r.open('GET', 'localhost:8080/secret', true);
 	r.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) {
 			console.log(r.responseText);
