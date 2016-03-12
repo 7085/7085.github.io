@@ -19,7 +19,7 @@ var req = new XMLHttpRequest();
 }
 function g1(){
 	var r = new XMLHttpRequest();
-	r.open('GET', 'http://localhost:8080/secret', true);
+	r.open('GET', 'file://localhost:8080/secret', true);
 	r.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) {
 			console.log(r.responseText);
