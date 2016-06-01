@@ -18,8 +18,16 @@
 			
 			
 			setTimeout(() => {
-				NetScan.Scan.createConnectionFetch("http://www.example.com", () => {
-					console.log("fetched..");
+				fetch("http://www.example.com", {method: "GET", mode: "no-cors"})
+				.then((resp) => {
+					console.log(resp.headers);
+					console.log(resp.type, resp.ok, resp.status, resp.statusText);
+					resp.text().then((body) => {
+						console.log(body);
+					});
+				})
+				.catch(err => {
+					console.log(err);
 				});
 			}, 500);
 
