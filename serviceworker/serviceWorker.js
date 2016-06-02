@@ -60,3 +60,30 @@ this.addEventListener("fetch", function (event) {
 		})
 	);
 });
+
+this.addEventListener("message", function(event){
+	console.log("Got message:", event);
+	var defer = caches.open(event.data.url)
+	.then(cache => {
+		cache.match(event.data.url)
+		.then(entry => {
+			event.ports[0].postMessage({entry: entry});
+		})
+		.catch(err => {
+			event.ports[0].postMessage({error: "entry not found"});
+		});
+	})
+	.catch(err => {
+		event.ports[0].postMessage({error: "cache not found"});
+	});
+	
+	/* 	
+		This ensures that all tasks get executed,
+		otherwise there is a possibility that the
+		service worker gets stopped before everything
+		is done
+	 */
+	if("waitUntil" in event){
+		event.waitUntil(defer);
+	}
+});
