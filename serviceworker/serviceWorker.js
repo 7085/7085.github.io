@@ -77,10 +77,13 @@ this.addEventListener("message", function(event){
 				event.ports[0].postMessage({error: "entry not found"});
 			}
 			else {
-				var c = "not set";
-				entry.clone().text().then(body => {
-					c = body;
-					/* we cannot pass the response through, domexception will be thrown */
+				var resp = entry.clone();
+				resp.text().then(body => {
+					var c = body;
+					console.log("headers", resp.headers);
+					console.log(performance.getEntriesByType("resource"));
+					/* 	we cannot pass the response through, domexception will be thrown,
+						need to serialize it before */
 					event.ports[0].postMessage({resp: c});
 				});
 			}
