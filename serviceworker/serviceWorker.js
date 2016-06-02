@@ -33,7 +33,7 @@ this.addEventListener("fetch", function (event) {
 			return response;
 		})
 		.catch(() => {
-			return fetch(event.request.clone())
+			return fetch(event.request.url, {method: "GET", mode: "no-cors", cache: "no-store"})
 			.then(function (response) {
 				console.log("fetched response", response.clone());
 				
