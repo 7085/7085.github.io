@@ -67,11 +67,18 @@ this.addEventListener("message", function(event){
 	.then(cache => {
 		cache.match(event.data.url)
 		.then(entry => {
-			event.ports[0].postMessage({entry: entry});
+			/* if not found resolves to undefined */
+			if(entry === undefined){
+				event.ports[0].postMessage({error: "entry not found"});
+			}
+			else {
+				event.ports[0].postMessage({entry: entry.clone()});
+			}
+			
 		})
-		.catch(err => {
-			event.ports[0].postMessage({error: "entry not found"});
-		});
+		// .catch(err => {
+		// 	event.ports[0].postMessage({error: "entry not found"});
+		// });
 	})
 	.catch(err => {
 		event.ports[0].postMessage({error: "cache not found"});
