@@ -65,11 +65,12 @@ this.addEventListener("message", function(event){
 	console.log("Got message:", event);
 	var defer = caches.open(event.data.url)
 	.then(cache => {
-		console.log(cache);
-		cache.keys().then(keys => {console.log(keys);});
+		console.log("cache:", cache);
+		cache.keys().then(keys => {console.log("Keys", keys);});
 		
 		cache.match(event.data.url)
 		.then(entry => {
+			console.log("entry:", entry);
 			/* if not found resolves to undefined */
 			if(entry === undefined){
 				event.ports[0].postMessage({error: "entry not found"});
