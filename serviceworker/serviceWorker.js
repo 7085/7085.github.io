@@ -70,13 +70,13 @@ this.addEventListener("message", function(event){
 		
 		cache.match(event.data.url)
 		.then(entry => {
-			console.log("entry:", entry);
+			console.log("entry:", entry.clone());
 			/* if not found resolves to undefined */
 			if(entry === undefined){
 				event.ports[0].postMessage({error: "entry not found"});
 			}
 			else {
-				event.ports[0].postMessage({entry: entry});
+				event.ports[0].postMessage({resp: JSON.stringify(entry)});
 			}
 			
 		})
