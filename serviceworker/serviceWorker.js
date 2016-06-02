@@ -1,4 +1,5 @@
 this.addEventListener("install", function (event) {
+	console.log("installing");
 	// event.waitUntil(
 	// 	caches.open('v1').then(function (cache) {
 	// 		return cache.addAll([
@@ -22,6 +23,7 @@ this.addEventListener("activate", function (event) {
 		caches.keys().then(function (cacheNames) {
 			return Promise.all(
 				cacheNames.map(function (cacheName) {
+					console.log("purging cache: ", cacheName);
 					return caches.delete(cacheName);
 				})
 			);
@@ -35,17 +37,18 @@ this.addEventListener("fetch", function (event) {
 	event.respondWith(
 		caches.match(event.request.url)
 		.then((response) => {
-			console.log("cache response", response.clone());
+			console.log("cached response", response.clone());
 			return response;
 		})
 		.catch(() => {
 			return fetch(event.request.clone())
 			.then(function (response) {
-				console.log("fetch response", response.clone());
+				console.log("fetched response", response.clone());
 				
 				/* cache it */
 				caches.open(event.request.url)
 				.then(function(cache) {
+					console.log("caching response...");
 					cache.put(event.request.url, response.clone());
 				});
 				
