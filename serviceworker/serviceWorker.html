@@ -56,10 +56,10 @@
 				setTimeout(() => {
 					sendMessage({url:"https://www.w3.org/TR/resource-timing/"})
 					.then((resp) => {
-						console.log(resp);
+						console.log("main:", resp);
 					})
 					.catch(err => {
-						console.log(err);
+						console.log("main err:", err);
 					});
 				}, 1000);
 				
