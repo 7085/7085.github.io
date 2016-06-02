@@ -1,17 +1,9 @@
 this.addEventListener("install", function (event) {
 	console.log("installing");
 	// event.waitUntil(
-	// 	caches.open('v1').then(function (cache) {
+	// 	caches.open("test").then(function (cache) {
 	// 		return cache.addAll([
-	// 			'/sw-test/',
-	// 			'/sw-test/index.html',
-	// 			'/sw-test/style.css',
-	// 			'/sw-test/app.js',
-	// 			'/sw-test/image-list.js',
-	// 			'/sw-test/star-wars-logo.jpg',
-	// 			'/sw-test/gallery/bountyHunters.jpg',
-	// 			'/sw-test/gallery/myLittleVader.jpg',
-	// 			'/sw-test/gallery/snowTroopers.jpg'
+	// 			"asdf.html"
 	// 		]);
 	// 	})
 	// );
@@ -79,19 +71,20 @@ this.addEventListener("message", function(event){
 			else {
 				var resp = entry.clone();
 				resp.text().then(body => {
-					var c = body;
-					console.log("headers", resp.headers);
+					var b = body;
+					var s = ""+ resp.status +" :: "+ resp.statusText;
+					var h = "";
+					for (var header of resp.headers.entries()) {
+						h += header[0] +": "+ header[1];
+					}
 					console.log(performance.getEntriesByType("resource"));
 					/* 	we cannot pass the response through, domexception will be thrown,
 						need to serialize it before */
-					event.ports[0].postMessage({resp: c});
+					event.ports[0].postMessage({status: s, headers: h, body: b});
 				});
 			}
 			
 		})
-		// .catch(err => {
-		// 	event.ports[0].postMessage({error: "entry not found"});
-		// });
 	})
 	.catch(err => {
 		event.ports[0].postMessage({error: "cache not found"});
