@@ -71,12 +71,13 @@ this.addEventListener("message", function(event){
 		cache.match(event.data.url)
 		.then(entry => {
 			console.log("entry:", entry.clone());
+			var c = entry.clone();
 			/* if not found resolves to undefined */
 			if(entry === undefined){
 				event.ports[0].postMessage({error: "entry not found"});
 			}
 			else {
-				event.ports[0].postMessage({resp: entry.clone()});
+				event.ports[0].postMessage({resp: c});
 			}
 			
 		})
