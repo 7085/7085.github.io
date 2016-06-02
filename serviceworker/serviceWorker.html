@@ -39,7 +39,7 @@
 				console.log("reg success");
 				
 				setTimeout(() => {
-					fetch(url, {method: "GET", mode: "no-cors"})
+					fetch(url, {method: "GET", mode: "no-cors", cache: "no-store"})
 					.then((resp) => {
 						console.log("received response:", resp);
 						resp.text().then((body) => {
