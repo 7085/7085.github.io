@@ -65,6 +65,7 @@ this.addEventListener("message", function(event){
 	console.log("Got message:", event);
 	var defer = caches.open(event.data.url)
 	.then(cache => {
+		console.log(cache);
 		cache.keys().then(keys => {console.log(keys);});
 		
 		cache.match(event.data.url)
