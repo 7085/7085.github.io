@@ -75,7 +75,7 @@ this.addEventListener("message", function(event){
 					var s = ""+ resp.status +" :: "+ resp.statusText;
 					var h = "";
 					for (var header of resp.headers.entries()) {
-						h += header[0] +": "+ header[1];
+						h += header[0] +": "+ header[1] +"\n";
 					}
 					console.log(performance.getEntriesByType("resource"));
 					/* 	we cannot pass the response through, domexception will be thrown,
