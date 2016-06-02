@@ -76,7 +76,7 @@ this.addEventListener("message", function(event){
 				event.ports[0].postMessage({error: "entry not found"});
 			}
 			else {
-				event.ports[0].postMessage({resp: JSON.stringify(entry)});
+				event.ports[0].postMessage({resp: entry.clone()});
 			}
 			
 		})
