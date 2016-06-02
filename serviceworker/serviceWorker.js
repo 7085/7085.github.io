@@ -71,17 +71,18 @@ this.addEventListener("message", function(event){
 		cache.match(event.data.url)
 		.then(entry => {
 			console.log("entry:", entry.clone());
-			var c = "not set";
-			entry.clone().text().then(body => {
-				c = body;
-			});
+
 			/* if not found resolves to undefined */
 			if(entry === undefined){
 				event.ports[0].postMessage({error: "entry not found"});
 			}
 			else {
-				/* we cannot pass the response through, domexception will be thrown */
-				event.ports[0].postMessage({resp: c});
+				var c = "not set";
+				entry.clone().text().then(body => {
+					c = body;
+					/* we cannot pass the response through, domexception will be thrown */
+					event.ports[0].postMessage({resp: c});
+				});
 			}
 			
 		})
