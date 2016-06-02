@@ -17,16 +17,16 @@ this.addEventListener("install", function (event) {
 });
 
 this.addEventListener("activate", function (event) {
-	// /* purge all caches */
-	// event.waitUntil(
-	// 	caches.keys().then(function (cacheNames) {
-	// 		return Promise.all(
-	// 			cacheNames.map(function (cacheName) {
-	// 				return caches.delete(cacheName);
-	// 			})
-	// 		);
-	// 	})
-	// );
+	/* purge all caches */
+	event.waitUntil(
+		caches.keys().then(function (cacheNames) {
+			return Promise.all(
+				cacheNames.map(function (cacheName) {
+					return caches.delete(cacheName);
+				})
+			);
+		})
+	);
 });
 
 this.addEventListener("fetch", function (event) {
@@ -35,13 +35,13 @@ this.addEventListener("fetch", function (event) {
 	event.respondWith(
 		caches.match(event.request.url)
 		.then((response) => {
-			console.log("cache response", response);
+			console.log("cache response", response.clone());
 			return response;
 		})
 		.catch(() => {
 			return fetch(event.request.clone())
 			.then(function (response) {
-				console.log("fetch response", response);
+				console.log("fetch response", response.clone());
 				
 				/* cache it */
 				caches.open(event.request.url)
@@ -49,7 +49,7 @@ this.addEventListener("fetch", function (event) {
 					cache.put(event.request.url, response.clone());
 				});
 				
-				return response;
+				return response.clone();
 			})
 			.catch(function (error) {
 				console.error("fetch failed", error);
