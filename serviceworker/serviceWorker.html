@@ -20,8 +20,7 @@
 			setTimeout(() => {
 				fetch("https://www.w3.org/TR/resource-timing/", {method: "GET", mode: "no-cors"})
 				.then((resp) => {
-					console.log(resp.headers);
-					console.log(resp.type, resp.ok, resp.status, resp.statusText);
+					console.log("received response:", resp);
 					resp.text().then((body) => {
 						console.log(body);
 					});
