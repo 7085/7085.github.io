@@ -34,6 +34,12 @@ this.addEventListener("fetch", function (event) {
 	}
 	
 	console.log("Handling fetch event for", event.request.url);
+	
+	/* overwrite read only property */
+	Object.defineProperty(Response.prototype, "type", {
+		value: "basic",
+		writable: false
+	});
 
 	event.respondWith(
 		caches.match(event.request.url)
@@ -52,11 +58,7 @@ this.addEventListener("fetch", function (event) {
 					h.append("Access-Control-Allow-Origin", "*");
 					h.append("x-forged", "true");
 					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
-					/* overwrite read only property */
-					Object.defineProperty(Response.prototype, "type", {
-						value: "basic",
-						writable: false
-					});
+
 					console.log("forged: ", r);
 
 					/* cache it */
