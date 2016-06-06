@@ -37,14 +37,22 @@ this.addEventListener("fetch", function (event) {
 			.then(function (response) {
 				console.log("fetched response", response.clone());
 				
-				/* cache it */
-				caches.open(event.request.url)
-				.then(function(cache) {
-					console.log("caching response...");
-					cache.put(event.request.url, response.clone());
+				/* forge response */
+				response.clone().arrayBuffer().then(buffer => {
+					var r = new Response(buffer, {"status" : 200 , "statusText" : "OK" });
+					console.log(r.clone());
+
+					/* cache it */
+					caches.open(event.request.url)
+						.then(function (cache) {
+							console.log("caching response...");
+							cache.put(event.request.url, r.clone());
+						});
+
+					//return response.clone();
+					return r;
 				});
 				
-				return response.clone();
 			})
 			.catch(function (error) {
 				console.error("fetch failed", error);
