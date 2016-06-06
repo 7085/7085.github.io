@@ -1,3 +1,8 @@
+var urlsToIntercept = [
+	"https://w0y.at/pages/about.html",
+	"https://www.w3.org/TR/resource-timing/"
+];
+
 this.addEventListener("install", function (event) {
 	console.log("installing");
 	// event.waitUntil(
@@ -24,6 +29,10 @@ this.addEventListener("activate", function (event) {
 });
 
 this.addEventListener("fetch", function (event) {
+	if(urlsToIntercept.indexOf(event.request.url) === -1){
+		return;
+	}
+	
 	console.log("Handling fetch event for", event.request.url);
 
 	event.respondWith(
@@ -33,7 +42,7 @@ this.addEventListener("fetch", function (event) {
 			return response.clone();
 		})
 		.catch(() => {
-			fetch(event.request.url, {method: "GET", mode: "no-cors"}) //{method: "GET", mode: "no-cors", cache: "no-store"}
+			var f = fetch(event.request.url, {method: "GET", mode: "no-cors"}) //{method: "GET", mode: "no-cors", cache: "no-store"}
 			.then(function (response) {
 				console.log("fetched response", response.clone());
 				
@@ -47,7 +56,7 @@ this.addEventListener("fetch", function (event) {
 						value: "basic",
 						writable: false
 					});
-					console.log("forged: ", r.clone());
+					console.log("forged: ", r);
 
 					/* cache it */
 					caches.open(event.request.url)
@@ -57,7 +66,7 @@ this.addEventListener("fetch", function (event) {
 						});
 
 					//return response.clone();
-					return r;
+					//return r;
 				});
 				
 			})
@@ -65,6 +74,8 @@ this.addEventListener("fetch", function (event) {
 				console.error("fetch failed", error);
 				throw error;
 			});
+			
+			return f;
 		})
 	);
 });
