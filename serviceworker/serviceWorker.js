@@ -63,7 +63,7 @@ this.addEventListener("fetch", function (event) {
 					caches.open(event.request.url)
 						.then(function (cache) {
 							console.log("caching response...");
-							cache.put(event.request.url, r.clone());
+							cache.put(event.request.url, r);
 						});
 
 					//return response.clone();
@@ -94,9 +94,9 @@ this.addEventListener("message", function(event){
 				event.ports[0].postMessage({error: "entry not found"});
 			}
 			else {
-				console.log("entry:", entry.clone());
+				console.log("entry:", entry);
 				
-				var resp = entry.clone();
+				var resp = entry;
 				resp.text().then(body => {
 					console.log("body", body);
 					var b = body;
