@@ -40,7 +40,7 @@ this.addEventListener("fetch", function (event) {
 				/* forge response */
 				response.clone().arrayBuffer().then(buffer => {
 					var r = new Response(buffer, {"status" : 200 , "statusText" : "OK" });
-					console.log(r.clone());
+					console.log("forged: ", r.clone());
 
 					/* cache it */
 					caches.open(event.request.url)
