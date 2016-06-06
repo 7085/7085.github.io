@@ -38,8 +38,8 @@ this.addEventListener("fetch", function (event) {
 	event.respondWith(
 		caches.match(event.request.url)
 		.then((response) => {
-			console.log("cached response", response.clone());
-			return response.clone();
+			console.log("cached response", response);
+			return response;
 		})
 		.catch(() => {
 			var f = fetch(event.request.url, {method: "GET", mode: "no-cors"}) //{method: "GET", mode: "no-cors", cache: "no-store"}
