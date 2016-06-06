@@ -43,6 +43,10 @@ this.addEventListener("fetch", function (event) {
 					h.append("Access-Control-Allow-Origin", "*");
 					h.append("x-forged", "true");
 					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
+					Object.defineProperty(r, "type", {
+						value: "basic",
+						writable: false
+					});
 					console.log("forged: ", r.clone());
 
 					/* cache it */
