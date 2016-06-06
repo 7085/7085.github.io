@@ -80,6 +80,7 @@ this.addEventListener("message", function(event){
 				
 				var resp = entry.clone();
 				resp.text().then(body => {
+					console.log("body", body);
 					var b = body;
 					var s = ""+ resp.status +" :: "+ resp.statusText;
 					var h = "";
