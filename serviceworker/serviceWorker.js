@@ -39,7 +39,10 @@ this.addEventListener("fetch", function (event) {
 				
 				/* forge response */
 				response.clone().arrayBuffer().then(buffer => {
-					var r = new Response(buffer, {"status" : 200 , "statusText" : "OK" });
+					var h = new Headers();
+					h.append("Access-Control-Allow-Origin", "*");
+					h.append("x-forged", "true");
+					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
 					console.log("forged: ", r.clone());
 
 					/* cache it */
