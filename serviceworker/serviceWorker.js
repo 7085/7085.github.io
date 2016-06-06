@@ -52,6 +52,7 @@ this.addEventListener("fetch", function (event) {
 					h.append("Access-Control-Allow-Origin", "*");
 					h.append("x-forged", "true");
 					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
+					/* overwrite read only property */
 					Object.defineProperty(r, "type", {
 						value: "basic",
 						writable: false
@@ -72,7 +73,6 @@ this.addEventListener("fetch", function (event) {
 			})
 			.catch(function (error) {
 				console.error("fetch failed", error);
-				throw error;
 			});
 			
 			return f;
