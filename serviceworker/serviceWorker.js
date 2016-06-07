@@ -40,7 +40,10 @@ this.addEventListener("fetch", function (event) {
 		value: "basic",
 		writable: false
 	});
-
+	Object.defineProperty(Response.prototype, "type", {
+		get: function () { return "cors"; }
+	});
+					
 	event.respondWith(
 		caches.match(event.request.url)
 		.then((response) => {
@@ -59,7 +62,7 @@ this.addEventListener("fetch", function (event) {
 					h.append("x-forged", "true");
 					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
 
-					console.log("forged: ", response);
+					console.log("forged: ", response.clone());
 
 					/* cache it */
 					caches.open(event.request.url)
