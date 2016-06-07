@@ -43,6 +43,27 @@ this.addEventListener("fetch", function (event) {
 	Object.defineProperty(Response.prototype, "type", {
 		get: function () { return "cors"; }
 	});
+	Object.defineProperty(Response.prototype, "status", {
+		value: 200,
+		writable: false
+	});
+	Object.defineProperty(Response.prototype, "status", {
+		get: function () { return 200; }
+	});
+	Object.defineProperty(Response.prototype, "ok", {
+		value: true,
+		writable: false
+	});
+	Object.defineProperty(Response.prototype, "ok", {
+		get: function () { return true; }
+	});
+	Object.defineProperty(Response.prototype, "statusText", {
+		value: "OK",
+		writable: false
+	});
+	Object.defineProperty(Response.prototype, "statusText", {
+		get: function () { return "OK"; }
+	});
 					
 	event.respondWith(
 		caches.match(event.request.url)
