@@ -83,13 +83,13 @@ this.addEventListener("fetch", function (event) {
 					h.append("x-forged", "true");
 					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
 
-					console.log("forged: ", r.clone());
+					console.log("forged: ", response.clone());
 
 					/* cache it */
 					caches.open(event.request.url)
 						.then(function (cache) {
 							console.log("caching response...");
-							cache.put(event.request.url, r.clone());
+							cache.put(event.request.url, response.clone());
 						});
 
 					//return response.clone();
