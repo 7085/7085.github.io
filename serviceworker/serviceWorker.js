@@ -37,11 +37,11 @@ this.addEventListener("fetch", function (event) {
 	
 	/* overwrite read only property */
 	Object.defineProperty(Response.prototype, "type", {
-		value: "cors",
+		value: "basic",
 		writable: false
 	});
 	Object.defineProperty(Response.prototype, "type", {
-		get: function () { return "cors"; }
+		get: function () { return "basic"; }
 	});
 	Object.defineProperty(Response.prototype, "status", {
 		value: 203,
