@@ -37,18 +37,18 @@ this.addEventListener("fetch", function (event) {
 	
 	/* overwrite read only property */
 	Object.defineProperty(Response.prototype, "type", {
-		value: "basic",
+		value: "cors",
 		writable: false
 	});
 	Object.defineProperty(Response.prototype, "type", {
 		get: function () { return "cors"; }
 	});
 	Object.defineProperty(Response.prototype, "status", {
-		value: 200,
+		value: 203,
 		writable: false
 	});
 	Object.defineProperty(Response.prototype, "status", {
-		get: function () { return 200; }
+		get: function () { return 203; }
 	});
 	Object.defineProperty(Response.prototype, "ok", {
 		value: true,
@@ -58,11 +58,11 @@ this.addEventListener("fetch", function (event) {
 		get: function () { return true; }
 	});
 	Object.defineProperty(Response.prototype, "statusText", {
-		value: "OK",
+		value: "Non-Authoritative Information",
 		writable: false
 	});
 	Object.defineProperty(Response.prototype, "statusText", {
-		get: function () { return "OK"; }
+		get: function () { return "Non-Authoritative Information"; }
 	});
 					
 	event.respondWith(
@@ -124,7 +124,7 @@ this.addEventListener("message", function(event){
 				
 				var resp = entry;
 				resp.text().then(body => {
-					console.log("body", body);
+					//console.log("body", body);
 					var b = body;
 					var s = ""+ resp.status +" :: "+ resp.statusText;
 					var h = "";
