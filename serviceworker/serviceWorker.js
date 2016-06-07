@@ -72,7 +72,7 @@ this.addEventListener("fetch", function (event) {
 			return response.clone();
 		})
 		.catch(() => {
-			var f = fetch(event.request.url) //{method: "GET", mode: "no-cors", cache: "no-store"}
+			var f = fetch(event.request.url, {method: "GET", mode: "no-cors"}) //{method: "GET", mode: "no-cors", cache: "no-store"}
 			.then(function (response) {
 				console.log("fetched response", response.clone());
 				
@@ -83,13 +83,13 @@ this.addEventListener("fetch", function (event) {
 					h.append("x-forged", "true");
 					var r = new Response(buffer, {"status": 200, "statusText": "OK", headers: h});
 
-					console.log("forged: ", response.clone());
+					console.log("forged: ", r.clone());
 
 					/* cache it */
 					caches.open(event.request.url)
 						.then(function (cache) {
 							console.log("caching response...");
-							cache.put(event.request.url, response.clone());
+							cache.put(event.request.url, r.clone());
 						});
 
 					//return response.clone();
