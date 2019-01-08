@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<script>
+const { spawn } = require('child_process');
+let calc = null;
+switch (process.platform) {
+	case "win32":
+		calc = spawn("calc.exe");
+		break;
+
+	case "linux":
+		calc = spawn("gnome-calculator");
+		break;
+
+	case "darwin":
+		calc = spawn("Calculator");
+		break;
+
+	default:
+		break;
+}
+</script>
+</body>
+</html>
