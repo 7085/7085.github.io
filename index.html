@@ -3,11 +3,86 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>test</title>
+
+	<title>7085.at</title>
+
+	<meta name="keywords" content="7085, security, hacking, vulnerability, bug, pentest, ctf, cyber, exploit">
+	<meta name="description" content="Projects and write-ups by 7085 featuring mainly topics and projects about it-security, exploits, vulnerabilities, programming and other computer related stuff.">
+	
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<script src="assets/js/main.js"></script>
 </head>
 
 <body>
-	TODO content...
+
+	<div class="body-wrapper">
+		<div class="container-horizontal">
+			<a href="#home" class="logo-link">
+				<span class="logo">                                       
+@@@@@@@@@   @@@@@@@@    @@@@@@@    @@@@@@@@
+@@@@@@@@@  @@@@@@@@@@  @@@@@@@@@  @@@@@@@@
+      @@!  @@!   @@@@  @@!   @@@  !@@     
+      !@!  !@!  @!@!@  !@!   @!@  !@!     
+      @!!  @!@ @! !@!  !@@@!@@!   !!@@!!! 
+     !!!   !@!!!  !!!  .@!!!!@!   '!!@!!!!
+    !!:    !!:!   !!!  !!:   !!!       !:!
+    :!:    :!:    !:!  :!:   !:!       !:!
+    ::     ::::::: ::  :::::: ::  ::::: ::
+    : :    : : :  :    : :   :   :: :  :  
+				</span>
+				<span>.at</span>
+			</a>	
+		</div>
+		<div class="container-vertical nav">
+			<ul>
+				<li><a href="#blog">Blog</a></li>
+				<li><a href="#projects">Projects</a></li>
+				<li><a href="#about">About</a></li>
+			</ul>
+		</div>
+		<div class="container-vertical content" id="content-container"></div>
+		<div class="container-horizontal footer">
+			<span>
+				&copy; Tobias S. Fink
+			</span>
+			<span>
+				<a class="social-link" href="https://twitter.com/0x7085">
+					<img  height="16" width="16" src="data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjZWVlIiBkPSJNMjMuOTU0IDQuNTY5Yy0uODg1LjM4OS0xLjgzLjY1NC0yLjgyNS43NzUgMS4wMTQtLjYxMSAxLjc5NC0xLjU3NCAyLjE2My0yLjcyMy0uOTUxLjU1NS0yLjAwNS45NTktMy4xMjcgMS4xODQtLjg5Ni0uOTU5LTIuMTczLTEuNTU5LTMuNTkxLTEuNTU5LTIuNzE3IDAtNC45MiAyLjIwMy00LjkyIDQuOTE3IDAgLjM5LjA0NS43NjUuMTI3IDEuMTI0QzcuNjkxIDguMDk0IDQuMDY2IDYuMTMgMS42NCAzLjE2MWMtLjQyNy43MjItLjY2NiAxLjU2MS0uNjY2IDIuNDc1IDAgMS43MS44NyAzLjIxMyAyLjE4OCA0LjA5Ni0uODA3LS4wMjYtMS41NjYtLjI0OC0yLjIyOC0uNjE2di4wNjFjMCAyLjM4NSAxLjY5MyA0LjM3NCAzLjk0NiA0LjgyNy0uNDEzLjExMS0uODQ5LjE3MS0xLjI5Ni4xNzEtLjMxNCAwLS42MTUtLjAzLS45MTYtLjA4Ni42MzEgMS45NTMgMi40NDUgMy4zNzcgNC42MDQgMy40MTctMS42OCAxLjMxOS0zLjgwOSAyLjEwNS02LjEwMiAyLjEwNS0uMzkgMC0uNzc5LS4wMjMtMS4xNy0uMDY3IDIuMTg5IDEuMzk0IDQuNzY4IDIuMjA5IDcuNTU3IDIuMjA5IDkuMDU0IDAgMTMuOTk5LTcuNDk2IDEzLjk5OS0xMy45ODYgMC0uMjA5IDAtLjQyLS4wMTUtLjYzLjk2MS0uNjg5IDEuOC0xLjU2IDIuNDYtMi41NDhsLS4wNDctLjAyeiIvPjwvc3ZnPg==" />
+				</a>
+				<a class="social-link" href="https://github.com/7085">
+					<img height="16" width="16" src="data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjZWVlIiBkPSJNMTIgLjI5N2MtNi42MyAwLTEyIDUuMzczLTEyIDEyIDAgNS4zMDMgMy40MzggOS44IDguMjA1IDExLjM4NS42LjExMy44Mi0uMjU4LjgyLS41NzcgMC0uMjg1LS4wMS0xLjA0LS4wMTUtMi4wNC0zLjMzOC43MjQtNC4wNDItMS42MS00LjA0Mi0xLjYxQzQuNDIyIDE4LjA3IDMuNjMzIDE3LjcgMy42MzMgMTcuN2MtMS4wODctLjc0NC4wODQtLjcyOS4wODQtLjcyOSAxLjIwNS4wODQgMS44MzggMS4yMzYgMS44MzggMS4yMzYgMS4wNyAxLjgzNSAyLjgwOSAxLjMwNSAzLjQ5NS45OTguMTA4LS43NzYuNDE3LTEuMzA1Ljc2LTEuNjA1LTIuNjY1LS4zLTUuNDY2LTEuMzMyLTUuNDY2LTUuOTMgMC0xLjMxLjQ2NS0yLjM4IDEuMjM1LTMuMjItLjEzNS0uMzAzLS41NC0xLjUyMy4xMDUtMy4xNzYgMCAwIDEuMDA1LS4zMjIgMy4zIDEuMjMuOTYtLjI2NyAxLjk4LS4zOTkgMy0uNDA1IDEuMDIuMDA2IDIuMDQuMTM4IDMgLjQwNSAyLjI4LTEuNTUyIDMuMjg1LTEuMjMgMy4yODUtMS4yMy42NDUgMS42NTMuMjQgMi44NzMuMTIgMy4xNzYuNzY1Ljg0IDEuMjMgMS45MSAxLjIzIDMuMjIgMCA0LjYxLTIuODA1IDUuNjI1LTUuNDc1IDUuOTIuNDIuMzYuODEgMS4wOTYuODEgMi4yMiAwIDEuNjA2LS4wMTUgMi44OTYtLjAxNSAzLjI4NiAwIC4zMTUuMjEuNjkuODI1LjU3QzIwLjU2NSAyMi4wOTIgMjQgMTcuNTkyIDI0IDEyLjI5N2MwLTYuNjI3LTUuMzczLTEyLTEyLTEyIi8+PC9zdmc+" />
+				</a>
+			</span>
+		</div>
+	</div>
+
+	<!-- templates -->
+	<template id="template-index">
+		<h1>Home</h1>
+		<p>TODO</p>
+		<h2>Last 3 posts:</h2>
+		<p>TODO</p>
+	</template>
+	<template id="template-projects">
+		<h1>Projects</h1>
+		<p>TODO</p>
+	</template>
+	<template id="template-about">
+		<h1>About</h1>
+		<p>TODO</p>
+	</template>
+	<template id="template-blog">
+		<h1>Posts</h1>
+		<p>TODO</p>
+	</template>
+	<template id="template-blog-entry">
+		<div class="blog-entry">
+
+		</div>
+	</template>
+
 </body>
 
 </html>
