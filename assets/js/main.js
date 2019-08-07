@@ -3,18 +3,22 @@ document.addEventListener("DOMContentLoaded", init);
 var get = null;
 const templates = {};
 var insertionPoint = null;
+var index = null;
 
 function init() {
-	initGlobals();
+	initEnv();
 
 	initTemplates();
 
 	window.addEventListener("hashchange", navigationHandler);
-
-	window.location.hash = "#home"
+	
+	get("posts/json/index.json", data => {
+		index = data;
+		window.location.hash = "#home";
+	});
 }
 
-function initGlobals() {
+function initEnv() {
 	if (window.fetch === undefined || typeof window.fetch !== "function") {
 		/** use xhr */
 		get = function(url, cb) {
