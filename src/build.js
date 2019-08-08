@@ -84,7 +84,10 @@ function addToIndex(post) {
 		index[post.year] = [];
 	}
 	
-	index[post.year].push(post.id);
+	const indexObj = {};
+	indexObj.id = post.id
+	indexObj.title = post.title;
+	index[post.year].push(indexObj);
 }
 
 function createPost(file, data) {
