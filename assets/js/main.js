@@ -1,20 +1,23 @@
-document.addEventListener("DOMContentLoaded", init);
+const apiEndpoint = "posts/json/";
+const apiEndpointRes = "posts/files/";
 
 var get = null;
 const templates = {};
 var insertionPoint = null;
 var index = null;
 
+document.addEventListener("DOMContentLoaded", init);
+
 function init() {
 	initEnv();
 
 	initTemplates();
 
-	window.addEventListener("hashchange", navigationHandler);
-	
-	get("posts/json/index.json", data => {
+	get(apiEndpoint +"index.json", data => {
 		index = data;
-		window.location.hash = "#home";
+
+		window.addEventListener("hashchange", navigationHandler);
+		window.location.hash = "#/home";
 	});
 }
 
@@ -24,7 +27,7 @@ function initEnv() {
 		get = function(url, cb) {
 			const x = new XMLHttpRequest();
 			x.open("GET", url);
-			x.responseType = "json"
+			x.responseType = "json";
 			x.onload = function() {
 				if (x.status !== "200") {
 					console.error(`Request (${x.status}): ${x.statusText}`);
@@ -65,17 +68,15 @@ function initTemplates() {
 	insertionPoint = document.querySelector("#content-container");
 
 	const templateNodes = document.querySelectorAll("template");
-	for (let i = 0, l = templateNodes.length; i < l; i++) {
-		let templateNode = templateNodes[i];
+	for (let templateNode of templateNodes) {
 		templates[templateNode.id.replace("template-", "")] = templateNode;
 	}
 }
 
 function navigationHandler() {
-	const clientPath = window.location.hash.slice(1);
-	const [page, entry, fancytitle] = clientPath.split("/");
-	
-	switch (page) {
+	const clientPath = window.location.hash;
+	const [ , category, entry] = clientPath.split("/");
+	switch (category) {
 		case "projects":
 			loadPageProjects();
 			break;
@@ -95,34 +96,96 @@ function navigationHandler() {
 }
 
 function loadPageProjects() {
-	preparePage(templates["projects"], "TODO");
+	const htmlContent = document.importNode(templates["projects"].content, true);
+
+	updatePage(htmlContent);
 }
 
 function loadPageAbout() {
-	preparePage(templates["about"], "TODO");
+	const htmlContent = document.importNode(templates["about"].content, true);
+
+	updatePage(htmlContent);
 }
 
 function loadPageBlog(entry) {
+	var htmlContent = null;
+
 	if (entry === undefined || entry === "") {
-		preparePage(templates["blog"], "TODO");	
+		htmlContent = document.importNode(templates["blog"].content, true);
+		for (let year in index) {
+			const section = document.createElement("h2");
+			section.textContent = year;
+			const list = document.createElement("ul");
+			for (let post of index[year]) {
+				const li = document.createElement("li");
+				const a = createLinkToPost(post);
+				li.appendChild(a);
+				list.appendChild(li);
+			}
+			htmlContent.appendChild(section);
+			htmlContent.appendChild(list);
+		}
+		updatePage(htmlContent);
 	}
-	
-	preparePage(templates["blog-entry"], "TODO");
+	else {
+		htmlContent = document.importNode(templates["blog-entry"].content, true);
+		updatePage(htmlContent);
+	}
 }
 
 function loadPageIndex() {
-	preparePage(templates["index"], "TODO");
+	const htmlContent = document.importNode(templates["index"].content, true);
+
+	const lastPosts = getLastPosts(3);
+	const list = htmlContent.querySelector("#recentposts");
+	for (let post of lastPosts) {
+		const li = document.createElement("li");
+		const a = createLinkToPost(post);
+		li.appendChild(a);
+		list.appendChild(li);
+	}
+
+	updatePage(htmlContent);
 }
 
-function preparePage(template, data) {
+function updatePage(content) {
 	while (insertionPoint.hasChildNodes()) {
 		insertionPoint.lastChild.remove();
 	}
-	
-	const copy = document.importNode(template.content, true);
-	// template.replace(/{{(.+?)}}/g, (match, g1) => {
-	// 	return data[g1];
-	// });
 
-	insertionPoint.appendChild(copy);
+	insertionPoint.appendChild(content);
+}
+
+function getLastPosts(count) {
+	var lastPosts = [];
+	const yearsDesc = Object.keys(index).sort().reverse();
+	for (let year of yearsDesc) {
+		let missing = count - lastPosts.length;
+		if (index[year].length >= missing) {
+			lastPosts = lastPosts.concat(index[year].slice(-missing));
+			break;
+		}
+		else {
+			lastPosts = lastPosts.concat(index[year]);
+		}
+	}
+	
+	/** sort in reverse order */
+	return lastPosts.sort((o1, o2) => {
+		if (o1.id < o2.id) {
+			return 1;
+		}
+		if (o1.id > o2.id) {
+			return -1;
+		}
+		return 0;
+	});
+}
+
+function createLinkToPost(post) {
+	const url = "#/blog/" + post.id;
+	const a = document.createElement("a");
+	a.setAttribute("href", url);
+	a.textContent = post.title;
+	return a;
 }
