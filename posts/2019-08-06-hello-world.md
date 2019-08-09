@@ -20,5 +20,5 @@ List:
 - b
 - c
 
-*Update 2019-08-07: added testing elements*
+*Update 2019-08-07: added testing elements*  
 *Update 2019-08-09: more test data*
