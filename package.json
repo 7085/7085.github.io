@@ -19,7 +19,8 @@
 	"homepage": "https://github.com/7085/7085.github.io#readme",
 	"dependencies": {
 		"colors": "^1.3.3",
-		"fs-extra": "^7.0.1",
-		"marked": "^0.6.2"
+		"fs-extra": "^8.1.0",
+		"highlight.js": "^9.15.9",
+		"marked": "^0.7.0"
 	}
 }
