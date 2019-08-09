@@ -39,6 +39,7 @@ function initEnv() {
 			};
 			x.onerror = function() {
 				console.error(`Request failed!`);
+				cb(null);
 			};
 			x.send();
 		};
@@ -73,6 +74,10 @@ function initTemplates() {
 	}
 }
 
+function getTemplate(name) {
+	return document.importNode(templates[name].content, true);
+}
+
 function navigationHandler() {
 	const clientPath = window.location.hash;
 	const [ , category, entry] = clientPath.split("/");
@@ -96,22 +101,20 @@ function navigationHandler() {
 }
 
 function loadPageProjects() {
-	const htmlContent = document.importNode(templates["projects"].content, true);
+	const htmlContent = getTemplate("projects");
 
 	updatePage(htmlContent);
 }
 
 function loadPageAbout() {
-	const htmlContent = document.importNode(templates["about"].content, true);
+	const htmlContent = getTemplate("about");
 
 	updatePage(htmlContent);
 }
 
 function loadPageBlog(entry) {
-	var htmlContent = null;
-
 	if (entry === undefined || entry === "") {
-		htmlContent = document.importNode(templates["blog"].content, true);
+		const htmlContent = getTemplate("blog");
 		for (let year in index) {
 			const section = document.createElement("h2");
 			section.textContent = year;
@@ -128,13 +131,26 @@ function loadPageBlog(entry) {
 		updatePage(htmlContent);
 	}
 	else {
-		htmlContent = document.importNode(templates["blog-entry"].content, true);
-		updatePage(htmlContent);
+		get(apiEndpoint + entry +".json", data => {
+			var htmlContent = null;
+			if (data === null) {
+				htmlContent = getTemplate("error");
+				const p = htmlContent.querySelector("p");
+				p.textContent = "The post was not found!"
+			}
+			else {
+				htmlContent = getTemplate("blog-entry");
+				const div = htmlContent.querySelector("div.blog-entry");
+				div.insertAdjacentHTML("afterbegin", data.html);
+			}
+			
+			updatePage(htmlContent);
+		});
 	}
 }
 
 function loadPageIndex() {
-	const htmlContent = document.importNode(templates["index"].content, true);
+	const htmlContent = getTemplate("index");
 
 	const lastPosts = getLastPosts(3);
 	const list = htmlContent.querySelector("#recentposts");
