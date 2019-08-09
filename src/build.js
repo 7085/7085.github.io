@@ -1,15 +1,35 @@
 const fs = require("fs-extra");
 const marked = require("marked");
 const colors = require("colors");
+const hljs = require("highlight.js");
+
+marked.setOptions({
+	highlight: function(code, lang) {
+		if (!lang) {
+			return code;
+		}
+		
+		return hljs.highlight(lang, code).value;
+	}
+});
 
 const BLOGDIR = "../posts";
 const BLOGDIR_OUTDIR = "../posts/json";
 const POST_INDEX_NAME = "index.json";
-
 const POST_FORMAT = /^\d{4}-\d{2}-\d{2}/;
+const CODE_STYLE = "vs2015.css"
 
 const startTime = new Date();
 const index = {};
+
+fs.copy("../node_modules/highlight.js/styles/"+ CODE_STYLE, "../assets/css/codestyle.css", err => {
+	if (err) {
+		console.log(`[${"FAIL".red}] Copying code stylesheet: ${err.message}`);
+	}
+	else {
+		console.log(`[${"OK".green}] Copying code stylesheet.`);
+	}
+});
 
 console.log(`Started post transformation at ${startTime.toTimeString().slice(0,8)}.`);
 
