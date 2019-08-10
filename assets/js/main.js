@@ -17,7 +17,12 @@ function init() {
 		index = data;
 
 		window.addEventListener("hashchange", navigationHandler);
-		window.location.hash = "#/home";
+		if (window.location.hash !== "") {
+			window.dispatchEvent(new HashChangeEvent("hashchange"));
+		}
+		else {
+			window.location.hash = "#/home";
+		}
 	});
 }
 
