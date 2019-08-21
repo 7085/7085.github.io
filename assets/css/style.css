@@ -5,7 +5,7 @@
 html {
 	line-height: 1.5;
 	font-size: 10px;
-	font-family: monospace;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
 	font-weight: normal;
 	color: #eee;
 	background-color: #111;
@@ -172,10 +172,24 @@ h3 {
 	line-height: 1.4;
 }
 
+h4 {
+	font-size: 1.8rem;
+	line-height: 1.5;
+}
+
+h5 {
+	font-size: 1.6rem;
+	line-height: 1.5;
+}
+
+h6 {
+	font-size: 1.4rem;
+	line-height: 1.5;
+}
+
 h1, h2, h3, h4, h5, h6 {
     margin: 0 0 20px 0;
-    font-family: monospace;
-    font-weight: 300;
+    font-weight: 400;
     color: #eee;
     text-transform: none;
 }
@@ -204,12 +218,12 @@ hr {
 
 pre > code {
 	display: block;
-	padding: 0.6rem;
+	padding: 1.0rem;
 }
 
 code {
 	font-family: monospace;
-	background-color: #1e1e1e;
+	background-color: #171717;
     border-radius: 3px;
     padding: 0.22rem 0.46rem;
 	font-size: 85%;
@@ -218,8 +232,9 @@ code {
 
 blockquote {
 	display: block;
-    border-left: 0.4rem solid #1e1e1e;
-    color: #ddd;
+    border-left: 0.5rem solid #2e2e2e;
+	color: #ddd;
+	background-color: #171717;
 	padding: 0 1.5rem;
 	margin: 0;
 }
@@ -305,7 +320,8 @@ table thead {
  *****************************************************************************/
 
 .logo {
-    line-height: 1;
+	line-height: 1;
+	font-family: monospace;
     font-size: 1.5rem;
     font-weight: bold;
     white-space: pre;
@@ -313,6 +329,7 @@ table thead {
 }
 
 .logo-link, .logo-link:hover {
+	font-family: monospace;
 	border: 0;
 	text-decoration: none;
 	display: flex;
