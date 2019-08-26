@@ -28,6 +28,7 @@ let startTime = new Date();
 let index = {};
 if (fs.pathExistsSync(POST_INDEX_FILE)) {
 	index = fs.readJSONSync(POST_INDEX_FILE);
+	console.log(`Loaded index in ${duration(startTime)}`)
 }
 
 startTime = new Date();
@@ -110,11 +111,8 @@ function transformPost(file, cb) {
 
 function processingFinished() {
 	const endTime = new Date();
-	const durationMS = endTime - startTime;
-	const ms = durationMS % 1000;
-	const hhmmss = (new Date(durationMS)).toUTCString().slice(17,25);
 	console.log(`Finished post transformation at ${endTime.toTimeString().slice(0,8)}.`);
-	console.log(`Time used: ${hhmmss +"."+ ms}`)
+	console.log(`Time used: ${duration(startTime, endTime)}`)
 
 	const indexStr = JSON.stringify(index);
 	fs.writeFile(POST_INDEX_FILE, indexStr, "utf8", (err) => {
@@ -153,4 +151,12 @@ function createPost(file, data) {
 	}
 
 	return post;
+}
+
+function duration(start, end) {
+	end = end || new Date();
+	const durationMS = end - start;
+	const ms = durationMS % 1000;
+	const hhmmss = (new Date(durationMS)).toUTCString().slice(17,25);
+	return hhmmss +"."+ ms;
 }
