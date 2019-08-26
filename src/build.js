@@ -2,6 +2,11 @@ const fs = require("fs-extra");
 const marked = require("marked");
 const colors = require("colors");
 const hljs = require("highlight.js");
+const cli = require("commander");
+
+cli.option("-p --post <file>", "Transform a single post of the posts directory.");
+
+cli.parse(process.argv);
 
 marked.setOptions({
 	highlight: function(code, lang) {
@@ -15,12 +20,44 @@ marked.setOptions({
 
 const BLOGDIR = "../posts";
 const BLOGDIR_OUTDIR = "../posts/json";
-const POST_INDEX_NAME = "index.json";
+const POST_INDEX_FILE = BLOGDIR_OUTDIR +"/index.json";
 const POST_FORMAT = /^\d{4}-\d{2}-\d{2}/;
 const CODE_STYLE = "vs2015.css"
 
-const startTime = new Date();
-const index = {};
+let startTime = new Date();
+let index = {};
+if (fs.pathExistsSync(POST_INDEX_FILE)) {
+	index = fs.readJSONSync(POST_INDEX_FILE);
+}
+
+startTime = new Date();
+console.log(`Started post transformation at ${startTime.toTimeString().slice(0,8)}.`);
+if (cli.post) {
+	const file = BLOGDIR +"/"+ cli.post;
+	fs.pathExists(file, (err, exists) => {
+		if (exists) {
+			transformPost(file, processingFinished);
+		}
+	});
+}
+else {
+	fs.readdir(BLOGDIR, (err, files) => {
+		/** subtract default non-posts */
+		const nrOfPosts = files.length - 2;
+		var processedPosts = 0;
+		console.log(`Found ${nrOfPosts} posts:`);
+
+		files.forEach(file => {
+			transformPost(file, (ok) => {
+				processedPosts++;
+
+				if (processedPosts === nrOfPosts) {
+					processingFinished();
+				}
+			});
+		});
+	});
+}
 
 fs.copy("../node_modules/highlight.js/styles/"+ CODE_STYLE, "../assets/css/codestyle.css", err => {
 	if (err) {
@@ -31,54 +68,45 @@ fs.copy("../node_modules/highlight.js/styles/"+ CODE_STYLE, "../assets/css/codes
 	}
 });
 
-console.log(`Started post transformation at ${startTime.toTimeString().slice(0,8)}.`);
 
-fs.readdir(BLOGDIR, (err, files) => {
-	/** subtract default non-posts */
-	const nrOfPosts = files.length - 2;
-	var processedPosts = 0;
-	console.log(`Found ${nrOfPosts} posts:`);
 
-	files.forEach(file => {
-		if (!file.endsWith(".md") || !POST_FORMAT.test(file)) {
+function transformPost(file, cb) {
+	if (!file.endsWith(".md") || !POST_FORMAT.test(file)) {
+		return;
+	}
+
+	fs.readFile(BLOGDIR +"/"+ file, "utf8", (err, data) => {
+		if (err) {
+			console.log(`[${"FAIL".red}] ${file}: ${err.message}`);
+			cb(false);
 			return;
 		}
 
-		fs.readFile(BLOGDIR +"/"+ file, "utf8", (err, data) => {
+		if (data === "" || data.length < 3) {
+			console.log(`[${"FAIL".yellow}] ${file}: ${"Invalid post! Skipping...".yellow}`);
+			cb(false);
+			return;
+		}
+		
+		const post = createPost(file, data);
+
+		const postStr = JSON.stringify(post);
+		const fileName = file.slice(0, -3) + ".json";
+		const destination = BLOGDIR_OUTDIR +"/"+ fileName;
+		fs.writeFile(destination, postStr, "utf8", (err) => {
 			if (err) {
 				console.log(`[${"FAIL".red}] ${file}: ${err.message}`);
-				throw err;
-			}
-
-			if (data === "" || data.length < 3) {
-				console.log(`[${"FAIL".yellow}] ${file}: ${"Invalid post! Skipping...".yellow}`);
-				processedPosts++;
+				cb(false);
 				return;
 			}
+
+			console.log(`[${"OK".green}] ${file}`);
 			
-			const post = createPost(file, data);
-
-			const postStr = JSON.stringify(post);
-			const fileName = file.slice(0, -3) + ".json";
-			const destination = BLOGDIR_OUTDIR +"/"+ fileName;
-			fs.writeFile(destination, postStr, "utf8", (err) => {
-				if (err) {
-					console.log(`[${"FAIL".red}] ${file}: ${err.message}`);
-					throw err;
-				}
-
-				console.log(`[${"OK".green}] ${file}`);
-				processedPosts++;
-
-				addToIndex(post);
-
-				if (processedPosts === nrOfPosts) {
-					processingFinished();
-				}
-			});
+			addToIndex(post);
+			cb(true);
 		});
 	});
-});
+}
 
 function processingFinished() {
 	const endTime = new Date();
@@ -89,7 +117,7 @@ function processingFinished() {
 	console.log(`Time used: ${hhmmss +"."+ ms}`)
 
 	const indexStr = JSON.stringify(index);
-	fs.writeFile(BLOGDIR_OUTDIR +"/"+ POST_INDEX_NAME, indexStr, "utf8", (err) => {
+	fs.writeFile(POST_INDEX_FILE, indexStr, "utf8", (err) => {
 		if (err) {
 			console.log(`[${"FAIL".red}] Writing index file: ${err.message}`);
 			throw err;
