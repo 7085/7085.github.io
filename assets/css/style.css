@@ -202,9 +202,11 @@ p, ul, ol, dl, pre {
     margin: 0 0 20px 0;
 }
 
+/* 
 *+p, *+ul, *+ol, *+dl, *+pre {
     margin-top: 20px;
 }
+*/
 
 hr {
 	box-sizing: content-box;
