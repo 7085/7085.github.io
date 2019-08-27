@@ -54,7 +54,7 @@ function initEnv() {
 			fetch(url)
 			.then(response => {
 				if (!response.ok) {
-					throw new Error(`(${x.status}): ${x.statusText}`);
+					throw new Error(`(${response.status}): ${response.statusText}`);
 				}
 
 				return response.json();
