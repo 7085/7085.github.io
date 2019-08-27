@@ -3,6 +3,7 @@ const marked = require("marked");
 const colors = require("colors");
 const hljs = require("highlight.js");
 const cli = require("commander");
+const path = require("path");
 
 cli.option("-p --post <file>", "Transform a single post of the posts directory.");
 
@@ -18,11 +19,14 @@ marked.setOptions({
 	}
 });
 
-const BLOGDIR = "../posts";
-const BLOGDIR_OUTDIR = "../posts/json";
+
+const ROOT = path.resolve(__dirname, "..");
+const BLOGDIR = ROOT +"/posts";
+const BLOGDIR_OUTDIR = ROOT +"/posts/json";
 const POST_INDEX_FILE = BLOGDIR_OUTDIR +"/index.json";
 const POST_FORMAT = /^\d{4}-\d{2}-\d{2}/;
-const CODE_STYLE = "vs2015.css"
+const CODE_STYLESHEET = ROOT +"/node_modules/highlight.js/styles/vs2015.css";
+const CODE_STYLESHEET_DEST = ROOT +"/assets/css/codestyle.css";
 
 let startTime = new Date();
 let index = {};
@@ -60,7 +64,7 @@ else {
 	});
 }
 
-fs.copy("../node_modules/highlight.js/styles/"+ CODE_STYLE, "../assets/css/codestyle.css", err => {
+fs.copy(CODE_STYLESHEET, CODE_STYLESHEET_DEST, err => {
 	if (err) {
 		console.log(`[${"FAIL".red}] Copying code stylesheet: ${err.message}`);
 	}
