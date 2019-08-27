@@ -124,7 +124,8 @@ function loadPageBlog(entry) {
 			const section = document.createElement("h2");
 			section.textContent = year;
 			const list = document.createElement("ul");
-			for (let post of index[year]) {
+			for (let postId in index[year]) {
+				const post = index[year][postId];
 				const li = document.createElement("li");
 				const a = createLinkToPost(post);
 				li.appendChild(a);
@@ -181,13 +182,14 @@ function getLastPosts(count) {
 	var lastPosts = [];
 	const yearsDesc = Object.keys(index).sort().reverse();
 	for (let year of yearsDesc) {
-		let missing = count - lastPosts.length;
-		if (index[year].length >= missing) {
-			lastPosts = lastPosts.concat(index[year].slice(-missing));
+		const missing = count - lastPosts.length;
+		const postsOfYear = Object.values(index[year]);
+		if (postsOfYear.length >= missing) {
+			lastPosts = lastPosts.concat(postsOfYear.slice(-missing));
 			break;
 		}
 		else {
-			lastPosts = lastPosts.concat(index[year]);
+			lastPosts = lastPosts.concat(postsOfYear);
 		}
 	}
 	

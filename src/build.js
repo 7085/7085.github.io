@@ -30,14 +30,16 @@ const CODE_STYLESHEET_DEST = ROOT +"/assets/css/codestyle.css";
 
 let startTime = new Date();
 let index = {};
-if (fs.pathExistsSync(POST_INDEX_FILE)) {
-	index = fs.readJSONSync(POST_INDEX_FILE);
-	console.log(`Loaded index in ${duration(startTime)}`)
-}
 
 startTime = new Date();
 console.log(`Started post transformation at ${startTime.toTimeString().slice(0,8)}.`);
 if (cli.post) {
+	/** load possible existing index */
+	if (fs.pathExistsSync(POST_INDEX_FILE)) {
+		index = fs.readJSONSync(POST_INDEX_FILE);
+		console.log(`Loaded index in ${duration(startTime)}`)
+	}
+
 	const file = BLOGDIR +"/"+ cli.post;
 	fs.pathExists(file, (err, exists) => {
 		if (exists) {
@@ -46,6 +48,8 @@ if (cli.post) {
 	});
 }
 else {
+	/** rebuild all posts, dont load index file */
+
 	fs.readdir(BLOGDIR, (err, files) => {
 		/** subtract default non-posts */
 		const nrOfPosts = files.length - 2;
@@ -131,13 +135,13 @@ function processingFinished() {
 
 function addToIndex(post) {
 	if (!index[post.year]) {
-		index[post.year] = [];
+		index[post.year] = {};
 	}
 	
 	const indexObj = {};
 	indexObj.id = post.id
 	indexObj.title = post.title;
-	index[post.year].push(indexObj);
+	index[post.year][post.id] = indexObj;
 }
 
 function createPost(file, data) {
