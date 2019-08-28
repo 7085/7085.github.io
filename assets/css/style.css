@@ -15,7 +15,7 @@ html {
 
 body {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     margin: 0px auto;
 	max-width: 900px;
 	min-width: 600px;
@@ -195,7 +195,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 *+h1, *+h2, *+h3, *+h4, *+h5, *+h6 {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 p, ul, ol, dl, pre {
@@ -314,6 +314,18 @@ table thead {
 	margin-top: 10px;
 	align-items : center;
 	justify-content : space-between;
+	font-size: 1.4rem;
+}
+
+.cv-wrapper {
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	grid-auto-rows: minmax(2rem, auto);
+	grid-gap: 1.5rem 3rem;
+}
+
+.cv-wrapper div:nth-child(2n+1) {
+	text-align: right;
 }
 
 
