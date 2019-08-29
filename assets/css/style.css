@@ -328,6 +328,23 @@ table thead {
 	text-align: right;
 }
 
+.project-wrapper {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-auto-rows: max-content;
+	grid-gap: 2rem;
+}
+
+.project-wrapper div {
+	background-color: #171717;
+	padding: 1rem;
+}
+
+.project-wrapper div h3 {
+	line-height: 2.0;
+    border-bottom: 1px dashed #777;
+}
+
 
 /*****************************************************************************
  * styling
