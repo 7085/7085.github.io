@@ -5,7 +5,7 @@ const hljs = require("highlight.js");
 const cli = require("commander");
 const path = require("path");
 
-cli.option("-p --post <file>", "Transform a single post of the posts directory.");
+cli.option("-p --post <post_id>", "Transform a single post of the posts directory.");
 
 cli.parse(process.argv);
 
@@ -22,7 +22,7 @@ marked.setOptions({
 
 const ROOT = path.resolve(__dirname, "..");
 const BLOGDIR = ROOT +"/posts";
-const BLOGDIR_OUTDIR = ROOT +"/posts/json";
+const BLOGDIR_OUTDIR = ROOT +"/posts/.json";
 const POST_INDEX_FILE = BLOGDIR_OUTDIR +"/index.json";
 const POST_FORMAT = /^\d{4}-\d{2}-\d{2}/;
 const CODE_STYLESHEET = ROOT +"/node_modules/highlight.js/styles/vs2015.css";
@@ -40,24 +40,24 @@ if (cli.post) {
 		console.log(`Loaded index in ${duration(startTime)}`)
 	}
 
-	const file = BLOGDIR +"/"+ cli.post;
+	const file = BLOGDIR +"/"+ cli.post +"/"+ cli.post +".md";
 	fs.pathExists(file, (err, exists) => {
 		if (exists) {
-			transformPost(file, processingFinished);
+			transformPost(cli.post, processingFinished);
 		}
 	});
 }
 else {
 	/** rebuild all posts, dont load index file */
 
-	fs.readdir(BLOGDIR, (err, files) => {
+	fs.readdir(BLOGDIR, (err, posts) => {
 		/** subtract default non-posts */
-		const nrOfPosts = files.length - 2;
+		const nrOfPosts = posts.length - 1;
 		var processedPosts = 0;
 		console.log(`Found ${nrOfPosts} posts:`);
 
-		files.forEach(file => {
-			transformPost(file, (ok) => {
+		posts.forEach(post => {
+			transformPost(post, (ok) => {
 				processedPosts++;
 
 				if (processedPosts === nrOfPosts) {
@@ -79,37 +79,37 @@ fs.copy(CODE_STYLESHEET, CODE_STYLESHEET_DEST, err => {
 
 
 
-function transformPost(file, cb) {
-	if (!file.endsWith(".md") || !POST_FORMAT.test(file)) {
+function transformPost(postId, cb) {
+	if (!POST_FORMAT.test(postId)) {
 		return;
 	}
 
-	fs.readFile(BLOGDIR +"/"+ file, "utf8", (err, data) => {
+	const file = BLOGDIR +"/"+ postId +"/"+ postId +".md";
+	fs.readFile(file, "utf8", (err, data) => {
 		if (err) {
-			console.log(`[${"FAIL".red}] ${file}: ${err.message}`);
+			console.log(`[${"FAIL".red}] ${postId}: ${err.message}`);
 			cb(false);
 			return;
 		}
 
 		if (data === "" || data.length < 3) {
-			console.log(`[${"FAIL".yellow}] ${file}: ${"Invalid post! Skipping...".yellow}`);
+			console.log(`[${"FAIL".yellow}] ${postId}: ${"Invalid post! Skipping...".yellow}`);
 			cb(false);
 			return;
 		}
 		
-		const post = createPost(file, data);
+		const post = createPost(postId, data);
 
 		const postStr = JSON.stringify(post);
-		const fileName = file.slice(0, -3) + ".json";
-		const destination = BLOGDIR_OUTDIR +"/"+ fileName;
+		const destination = BLOGDIR_OUTDIR +"/"+ postId +".json";
 		fs.writeFile(destination, postStr, "utf8", (err) => {
 			if (err) {
-				console.log(`[${"FAIL".red}] ${file}: ${err.message}`);
+				console.log(`[${"FAIL".red}] ${postId}: ${err.message}`);
 				cb(false);
 				return;
 			}
 
-			console.log(`[${"OK".green}] ${file}`);
+			console.log(`[${"OK".green}] ${postId}`);
 			
 			addToIndex(post);
 			cb(true);
@@ -144,12 +144,12 @@ function addToIndex(post) {
 	index[post.year][post.id] = indexObj;
 }
 
-function createPost(file, data) {
+function createPost(postId, data) {
 	const post = {};
-	post.id = file.slice(0, -3);
+	post.id = postId;
 	post.title = data.slice(1, data.indexOf("\n")).trim();
-	post.year = file.slice(0, 4);
-	post.created = file.slice(0, 10);
+	post.year = postId.slice(0, 4);
+	post.created = postId.slice(0, 10);
 	post.html = marked(data);
 	post.lastUpdate = "";
 	if (data.indexOf("*Update ") !== -1) {
