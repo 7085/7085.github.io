@@ -157,7 +157,7 @@ function loadPageBlog(entry) {
 function loadPageIndex() {
 	const htmlContent = getTemplate("index");
 
-	const lastPosts = getLastPosts(3);
+	const lastPosts = getLastPosts(5);
 	const list = htmlContent.querySelector("#recentposts");
 	for (let post of lastPosts) {
 		const li = document.createElement("li");
