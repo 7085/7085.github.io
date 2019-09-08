@@ -22,7 +22,7 @@ marked.setOptions({
 
 const ROOT = path.resolve(__dirname, "..");
 const BLOGDIR = ROOT +"/posts";
-const BLOGDIR_OUTDIR = ROOT +"/posts/.json";
+const BLOGDIR_OUTDIR = ROOT +"/posts/json";
 const POST_INDEX_FILE = BLOGDIR_OUTDIR +"/index.json";
 const POST_FORMAT = /^\d{4}-\d{2}-\d{2}/;
 const CODE_STYLESHEET = ROOT +"/node_modules/highlight.js/styles/vs2015.css";

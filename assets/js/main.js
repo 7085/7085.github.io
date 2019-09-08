@@ -1,4 +1,4 @@
-const apiEndpoint = "posts/.json/";
+const apiEndpoint = "posts/json/";
 
 var get = null;
 const templates = {};
