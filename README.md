@@ -1,1 +1,1 @@
-# personal website/playground
+# personal website & blog

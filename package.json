@@ -1,9 +1,11 @@
 {
 	"name": "7085.github.io",
 	"version": "1.0.0",
-	"description": "",
-	"main": "src/main.js",
+	"description": "Personal website and blog.",
+	"main": "src/build.js",
 	"scripts": {
+		"start": "node src/build.js",
+		"build": "node src/build.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
