@@ -1,5 +1,7 @@
 # Hello World!
 
+This blog went live on 8. September 2019.
+
 This is the first post and mainly for testing purposes :)
 
 Code: `inline`
@@ -51,3 +53,4 @@ Quotes:
 *Update 2019-08-07: added testing elements*  
 *Update 2019-08-09: more test data*  
 *Update 2019-08-20: images, tables, lines, quotes*
+*Update 2019-09-08: blog went live*
