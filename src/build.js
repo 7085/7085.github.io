@@ -11,7 +11,7 @@ cli.parse(process.argv);
 
 marked.setOptions({
 	highlight: function(code, lang) {
-		if (!lang) {
+		if (!lang || lang === "txt" || lang === "text") {
 			return code;
 		}
 		
