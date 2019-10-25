@@ -71,6 +71,7 @@ Of the four vulnerabilities two are still unfixed. This might be the case even f
 Some developers do not appreciate vulnerability reports, even when they are free and ignore problematic issues. Others however behave professionally and care about their products and the security of their users.
 
 Furthermore, this was the first time I reported CVEs. Actually the process is very simple as described on [cve.mitre.org](https://cve.mitre.org/cve/request_id.html):
+
 - First a CNA has to be chosen
 - Then the initial report has to be sent, for open source software this is the [CVE request form](https://cveform.mitre.org/) by MITRE
 - After a few days you will get a reply and (possibly) get a CVE ID
