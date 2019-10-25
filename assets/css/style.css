@@ -346,6 +346,11 @@ table thead {
     border-bottom: 1px dashed #777;
 }
 
+.blog-entry img {
+	display: block;
+	margin: 0 auto;
+}
+
 
 /*****************************************************************************
  * styling
