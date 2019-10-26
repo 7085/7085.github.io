@@ -119,11 +119,13 @@ function loadPageAbout() {
 function loadPageBlog(entry) {
 	if (entry === undefined || entry === "") {
 		const htmlContent = getTemplate("blog");
-		for (let year in index) {
+		const sortedIndex = Object.keys(index).sort().reverse();
+		for (let year of sortedIndex) {
 			const section = document.createElement("h2");
 			section.textContent = year;
 			const list = document.createElement("ul");
-			for (let postId in index[year]) {
+			const sortedPosts = Object.keys(index[year]).sort().reverse();
+			for (let postId of sortedPosts) {
 				const post = index[year][postId];
 				const li = document.createElement("li");
 				const a = createLinkToPost(post);
