@@ -6,6 +6,7 @@ const cli = require("commander");
 const path = require("path");
 
 cli.option("-p --post <post_id>", "Transform a single post of the posts directory.");
+cli.option("-a --all", "Rebuild all posts.");
 
 cli.parse(process.argv);
 
@@ -34,11 +35,8 @@ let index = {};
 startTime = new Date();
 console.log(`Started post transformation at ${startTime.toTimeString().slice(0,8)}.`);
 if (cli.post) {
-	/** load possible existing index */
-	if (fs.pathExistsSync(POST_INDEX_FILE)) {
-		index = fs.readJSONSync(POST_INDEX_FILE);
-		console.log(`Loaded index in ${duration(startTime)}`)
-	}
+	console.log(`Building single post ${cli.post}.`);
+	loadindex();
 
 	const file = BLOGDIR +"/"+ cli.post +"/"+ cli.post +".md";
 	fs.pathExists(file, (err, exists) => {
@@ -47,8 +45,9 @@ if (cli.post) {
 		}
 	});
 }
-else {
+else if (cli.all) {
 	/** rebuild all posts, dont load index file */
+	console.log("Building all posts.");
 
 	fs.readdir(BLOGDIR, (err, posts) => {
 		/** subtract default non-posts */
@@ -67,6 +66,39 @@ else {
 		});
 	});
 }
+else {
+	/** build new posts */
+	console.log("Building new posts only.");
+	loadindex();
+
+	fs.readdir(BLOGDIR, (err, posts) => {
+		/** subtract default non-posts */
+		const nrOfPosts = posts.length - 1;
+		var processedPosts = 0;
+
+		posts.forEach(post => {
+			if (isIndexed(post)) {
+				console.log(`Skipping ${post} because it already exists.`);
+				processedPosts++;
+				
+				if (processedPosts === nrOfPosts) {
+					processingFinished();
+				}
+
+				return;
+			}
+
+			transformPost(post, (ok) => {
+				processedPosts++;
+
+				if (processedPosts === nrOfPosts) {
+					processingFinished();
+				}
+			});
+		});
+	});
+}
+
 
 fs.copy(CODE_STYLESHEET, CODE_STYLESHEET_DEST, err => {
 	if (err) {
@@ -144,6 +176,19 @@ function addToIndex(post) {
 	index[post.year][post.id] = indexObj;
 }
 
+function isIndexed(postId) {
+	const year = postId.slice(0, 4);
+	if (!index[year]) {
+		return false;
+	}
+
+	if (!index[year][postId]) {
+		return false;
+	}
+
+	return true;
+}
+
 function createPost(postId, data) {
 	const post = {};
 	post.id = postId;
@@ -167,4 +212,12 @@ function duration(start, end) {
 	const ms = durationMS % 1000;
 	const hhmmss = (new Date(durationMS)).toUTCString().slice(17,25);
 	return hhmmss +"."+ ms;
+}
+
+function loadindex() {
+	/** load possible existing index */
+	if (fs.pathExistsSync(POST_INDEX_FILE)) {
+		index = fs.readJSONSync(POST_INDEX_FILE);
+		console.log(`Loaded index in ${duration(startTime)}`)
+	}
 }
