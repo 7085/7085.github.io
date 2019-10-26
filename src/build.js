@@ -80,7 +80,7 @@ else {
 			if (isIndexed(post)) {
 				console.log(`Skipping ${post} because it already exists.`);
 				processedPosts++;
-				
+
 				if (processedPosts === nrOfPosts) {
 					processingFinished();
 				}
@@ -100,15 +100,26 @@ else {
 }
 
 
-fs.copy(CODE_STYLESHEET, CODE_STYLESHEET_DEST, err => {
-	if (err) {
-		console.log(`[${"FAIL".red}] Copying code stylesheet: ${err.message}`);
-	}
-	else {
-		console.log(`[${"OK".green}] Copying code stylesheet.`);
-	}
-});
+function copyStylesheet () {
+	if (fs.existsSync(CODE_STYLESHEET_DEST)) {
+		const mod1 = fs.statSync(CODE_STYLESHEET).mtimeMs;
+		const mod2 = fs.statSync(CODE_STYLESHEET_DEST).mtimeMs;
 
+		if (mod1 <= mod2) {
+			return;
+		}
+	}
+
+	fs.copy(CODE_STYLESHEET, CODE_STYLESHEET_DEST, err => {
+		if (err) {
+			console.log(`[${"FAIL".red}] Copying code stylesheet: ${err.message}`);
+		}
+		else {
+			console.log(`[${"OK".green}] Copying code stylesheet.`);
+		}
+	});
+}
+copyStylesheet();
 
 
 function transformPost(postId, cb) {
