@@ -184,6 +184,7 @@ function addToIndex(post) {
 	const indexObj = {};
 	indexObj.id = post.id
 	indexObj.title = post.title;
+	indexObj.date = post.created;
 	index[post.year][post.id] = indexObj;
 }
 

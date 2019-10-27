@@ -41,6 +41,10 @@ body {
 	padding: 20px 0;
 }
 
+.post-link-wrapper a {
+	margin-left: 2rem;
+}
+
 
 /*****************************************************************************
  * links, buttons

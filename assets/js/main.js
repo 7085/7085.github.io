@@ -4,6 +4,11 @@ var get = null;
 const templates = {};
 var insertionPoint = null;
 var index = null;
+const dateOptions = {
+	day: "2-digit",
+	month: "short",
+	year: "numeric"
+};
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -124,12 +129,11 @@ function loadPageBlog(entry) {
 			const section = document.createElement("h2");
 			section.textContent = year;
 			const list = document.createElement("ul");
+			list.classList.add("post-link-wrapper");
 			const sortedPosts = Object.keys(index[year]).sort().reverse();
 			for (let postId of sortedPosts) {
 				const post = index[year][postId];
-				const li = document.createElement("li");
-				const a = createLinkToPost(post);
-				li.appendChild(a);
+				const li = createLinkToPost(post);
 				list.appendChild(li);
 			}
 			htmlContent.appendChild(section);
@@ -160,11 +164,9 @@ function loadPageIndex() {
 	const htmlContent = getTemplate("index");
 
 	const lastPosts = getLastPosts(5);
-	const list = htmlContent.querySelector("#recentposts");
+	const list = htmlContent.querySelector(".post-link-wrapper");
 	for (let post of lastPosts) {
-		const li = document.createElement("li");
-		const a = createLinkToPost(post);
-		li.appendChild(a);
+		const li = createLinkToPost(post);
 		list.appendChild(li);
 	}
 
@@ -208,8 +210,12 @@ function getLastPosts(count) {
 
 function createLinkToPost(post) {
 	const url = "#/blog/" + post.id;
+	const li = document.createElement("li");
 	const a = document.createElement("a");
 	a.setAttribute("href", url);
 	a.textContent = post.title;
-	return a;
+	console.log(post.date);
+	li.textContent = (new Date(post.date)).toLocaleDateString(undefined, dateOptions);
+	li.appendChild(a);
+	return li;
 }
