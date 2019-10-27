@@ -16,9 +16,9 @@ html {
 body {
     display: block;
     font-size: 1.6rem;
-    margin: 0px auto;
+	margin: 0px auto;
+	padding: 0 1rem;
 	max-width: 900px;
-	min-width: 600px;
     height: 100%;
     min-height: 100%;
 }
@@ -40,11 +40,6 @@ body {
 	flex-direction: column;
 	padding: 20px 0;
 }
-
-.post-link-wrapper a {
-	margin-left: 2rem;
-}
-
 
 /*****************************************************************************
  * links, buttons
@@ -276,30 +271,34 @@ table thead {
 	text-align: center;
 	font-weight: bold;
 }
+@media (max-width: 454px) {
+	.nav {
+		font-size: 1.8rem;
+		font-weight: normal;
+	}
+}
 
 .nav ul {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
 }
 
-.nav li {
-	flex: 1 0 auto;
-}
-
 .nav li a {
 	display: block;
-	padding: 24px;
+	padding: 2.4rem;
 	text-decoration: none;
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 	transition: .1s ease-in-out;
 	transition-property: color,background-color,border-color,border-style;
+}
+@media (max-width: 454px) {
+	.nav li a {
+		padding: 1.8rem;
+	}
 }
 
 .nav li a:hover {
@@ -353,8 +352,12 @@ table thead {
 .blog-entry img {
 	display: block;
 	margin: 0 auto;
+	max-width: 100%;
 }
 
+.post-link-wrapper a {
+	margin-left: 2rem;
+}
 
 /*****************************************************************************
  * styling
@@ -367,6 +370,15 @@ table thead {
     font-weight: bold;
     white-space: pre;
     text-decoration: none;
+}
+@media (max-width: 454px) {
+	.logo {
+		font-size: 1.2rem;
+		font-weight: normal;
+	}
+	.logo-suffix {
+		display: none;
+	}
 }
 
 .logo-link, .logo-link:hover {
