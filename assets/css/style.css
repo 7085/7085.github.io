@@ -15,12 +15,17 @@ html {
 
 body {
     display: block;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
 	margin: 0px auto;
 	padding: 0 1rem;
 	max-width: 900px;
     height: 100%;
     min-height: 100%;
+}
+@media (max-width: 454px) {
+	body {
+		font-size: 1.6rem;
+	}
 }
 
 .body-wrapper {
@@ -46,12 +51,14 @@ body {
  *****************************************************************************/
 
 a {
-	color: #eee;
+	color: #2f9ee2;
 	text-decoration: none;
-	border-bottom: 1px dashed #eee;
+	border-bottom: 1px hidden #2f9ee2;
 }
 a:hover {
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #2f9ee2;
+	transition: .1s ease-in-out;
+	transition-property: border-style;
 }
 
 button, input[type="button"] {
@@ -188,7 +195,7 @@ h6 {
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0 0 2.0rem 0;
-    font-weight: 400;
+    font-weight: 500;
     color: #eee;
     text-transform: none;
 }
@@ -266,7 +273,7 @@ table thead {
 }
 
 .nav {
-	font-size: 2.0rem;
+	font-size: 2.4rem;
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: bold;
@@ -287,6 +294,7 @@ table thead {
 }
 
 .nav li a {
+	color: #eee;
 	display: block;
 	padding: 2.4rem;
 	text-decoration: none;
@@ -364,6 +372,7 @@ table thead {
  *****************************************************************************/
 
 .logo {
+	color: #eee;
 	line-height: 1;
 	font-family: monospace;
     font-size: 1.5rem;
@@ -382,6 +391,7 @@ table thead {
 }
 
 .logo-link, .logo-link:hover {
+	color: #eee;
 	font-family: monospace;
 	border: 0;
 	text-decoration: none;
