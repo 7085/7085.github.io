@@ -10,6 +10,32 @@ cli.option("-a --all", "Rebuild all posts.");
 
 cli.parse(process.argv);
 
+const markedRenderer = new marked.Renderer();
+const absUrlRegex = /^[a-z0-9+.-]+:/;
+const relativeDirectLinkRegex = /^[#\/]/;
+const dblQuoteRegex = new RegExp(`"`, "g");
+var currentPostId = "";
+markedRenderer.image = function (href, title, text) {
+	var srcPart = "src=";
+	if (absUrlRegex.test(href) || relativeDirectLinkRegex.test(href)) {
+		srcPart += `"${href}"`;
+	}
+	else {
+		srcPart += `"/posts/${currentPostId}/${href}"`;
+	}
+
+	var textPart = ` alt="${text.replace(dblQuoteRegex, "&quot;")}"`;
+
+	var titlePart = " title=";
+	if (title) {
+		titlePart += `"${title.replace(dblQuoteRegex, "&quot;")}"`;
+	}
+	else {
+		titlePart = "";
+	}
+
+	return `<img ${srcPart}${textPart}${titlePart}>`;
+};
 marked.setOptions({
 	highlight: function(code, lang) {
 		if (!lang || lang === "txt" || lang === "text") {
@@ -17,7 +43,8 @@ marked.setOptions({
 		}
 		
 		return hljs.highlight(lang, code).value;
-	}
+	},
+	renderer: markedRenderer
 });
 
 
@@ -202,6 +229,8 @@ function isIndexed(postId) {
 }
 
 function createPost(postId, data) {
+	currentPostId = postId;
+
 	const post = {};
 	post.id = postId;
 	post.title = data.slice(1, data.indexOf("\n")).trim();
