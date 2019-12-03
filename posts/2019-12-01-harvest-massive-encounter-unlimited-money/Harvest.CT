@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="27">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"unlimited money"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Harvest.exe
+  Version: 
+  Date   : 2019-08-17
+  Author : 7085
+
+  Unlimited/fixed amount of colonial credits.
+}
+
+define(address,"Harvest.exe"+105A2)
+define(bytes,E8 79 A5 05 00)
+define(money,0000270F)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(code2)
+label(return)
+
+newmem:
+
+code:
+  //call Harvest.exe+6AB20
+  push esi
+  mov esi,ecx
+  mov eax,[esi+04]
+  mov ecx,[esi+08]
+  push edi
+  mov edi,[eax]
+  xor edi,[ecx]
+  // change
+  mov edi,money
+  call Harvest.exe+6A600
+  cdq
+  mov ecx,00000005
+  idiv ecx
+  test edx,edx
+  jne code2
+  call Harvest.exe+6A600
+  mov edx,[esi+04]
+  mov [edx],eax
+code2:
+  mov eax,[esi+04]
+  mov ecx,[eax]
+  mov edx,[esi+08]
+  xor ecx,edi
+  mov eax,edi
+  pop edi
+  mov [edx],ecx
+  pop esi
+  //ret
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // call Harvest.exe+6AB20
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Harvest.exe"+105A2
+
+"Harvest.exe"+1057C: D9 58 04              -  fstp dword ptr [eax+04]
+"Harvest.exe"+1057F: D9 45 E4              -  fld dword ptr [ebp-1C]
+"Harvest.exe"+10582: D9 58 08              -  fstp dword ptr [eax+08]
+"Harvest.exe"+10585: D9 45 D8              -  fld dword ptr [ebp-28]
+"Harvest.exe"+10588: D9 58 0C              -  fstp dword ptr [eax+0C]
+"Harvest.exe"+1058B: 8B 0D C8 06 62 00     -  mov ecx,[Harvest.exe+2206C8]
+"Harvest.exe"+10591: D9 45 EC              -  fld dword ptr [ebp-14]
+"Harvest.exe"+10594: D9 1C 24              -  fstp dword ptr [esp]
+"Harvest.exe"+10597: E8 A4 97 03 00        -  call Harvest.exe+49D40
+"Harvest.exe"+1059C: 8B 0D B4 04 62 00     -  mov ecx,[Harvest.exe+2204B4]
+// ---------- INJECTING HERE ----------
+"Harvest.exe"+105A2: E8 79 A5 05 00        -  call Harvest.exe+6AB20
+// ---------- DONE INJECTING  ----------
+"Harvest.exe"+105A7: 89 86 E4 01 00 00     -  mov [esi+000001E4],eax
+"Harvest.exe"+105AD: 83 3D 58 04 62 00 00  -  cmp dword ptr [Harvest.exe+220458],00
+"Harvest.exe"+105B4: 74 43                 -  je Harvest.exe+105F9
+"Harvest.exe"+105B6: 8B 0D C8 06 62 00     -  mov ecx,[Harvest.exe+2206C8]
+"Harvest.exe"+105BC: E8 3F 8E 03 00        -  call Harvest.exe+49400
+"Harvest.exe"+105C1: 89 45 D8              -  mov [ebp-28],eax
+"Harvest.exe"+105C4: DB 45 D8              -  fild dword ptr [ebp-28]
+"Harvest.exe"+105C7: 51                    -  push ecx
+"Harvest.exe"+105C8: 8B 0D 58 04 62 00     -  mov ecx,[Harvest.exe+220458]
+"Harvest.exe"+105CE: D9 1C 24              -  fstp dword ptr [esp]
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
