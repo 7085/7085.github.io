@@ -5,7 +5,7 @@
 html {
 	line-height: 1.5;
 	font-size: 10px;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+	font-family: monospace;
 	font-weight: normal;
 	color: #eee;
 	background-color: #111;
@@ -232,7 +232,7 @@ pre > code {
 
 code {
 	font-family: monospace;
-	background-color: #171717;
+	background-color: #1b1b1b;
     border-radius: 3px;
     padding: 0.22rem 0.46rem;
 	font-size: 85%;
