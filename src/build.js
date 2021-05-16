@@ -16,6 +16,29 @@ const relativeDirectLinkRegex = /^[#\/]/;
 const dblQuoteRegex = new RegExp(`"`, "g");
 var currentPostId = "";
 markedRenderer.image = function (href, title, text) {
+	const ext = href.slice(href.lastIndexOf(".") + 1);
+	switch (ext) {
+		case "mp4":
+		case "ogg":
+		case "webm":
+			return handleMdVideo(href, ext, title, text);
+	
+		default:
+			return handleMdImage(href, title, text);
+	}
+};
+marked.setOptions({
+	highlight: function(code, lang) {
+		if (!lang || lang === "txt" || lang === "text") {
+			return code;
+		}
+		
+		return hljs.highlight(lang, code).value;
+	},
+	renderer: markedRenderer
+});
+
+function handleMdImage(href, title, text) {
 	var srcPart = "src=";
 	if (absUrlRegex.test(href) || relativeDirectLinkRegex.test(href)) {
 		srcPart += `"${href}"`;
@@ -35,18 +58,23 @@ markedRenderer.image = function (href, title, text) {
 	}
 
 	return `<img ${srcPart}${textPart}${titlePart}>`;
-};
-marked.setOptions({
-	highlight: function(code, lang) {
-		if (!lang || lang === "txt" || lang === "text") {
-			return code;
-		}
-		
-		return hljs.highlight(lang, code).value;
-	},
-	renderer: markedRenderer
-});
+}
 
+function handleMdVideo(href, ext, poster, text) {
+	var posterPart = "";
+	if (poster) {
+		posterPart = `poster="${poster}"`
+	}
+
+	const src = `/posts/${currentPostId}/${href}`;
+
+	return `<figure>
+				<video controls="true" ${posterPart}>
+					<source src="${src}" type="video/${ext}">
+				</video>
+				<figcaption>Video: ${text}</figcaption>
+			</figure>`
+}
 
 const ROOT = path.resolve(__dirname, "..");
 const BLOGDIR = ROOT +"/posts";

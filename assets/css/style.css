@@ -176,32 +176,32 @@ select:not(:disabled), input[type="radio"]:not(:disabled), input[type="checkbox"
  *****************************************************************************/
 
 h1 {
-	font-size: 2.4rem;
+	font-size: 2.6rem;
 	line-height: 1.4;
 }
 
 h2 {
-	font-size: 2.2rem;
+	font-size: 2.4rem;
 	line-height: 1.4;
 }
 
 h3 {
-	font-size: 2.0rem;
+	font-size: 2.2rem;
 	line-height: 1.4;
 }
 
 h4 {
-	font-size: 1.8rem;
+	font-size: 2.1rem;
 	line-height: 1.5;
 }
 
 h5 {
-	font-size: 1.6rem;
+	font-size: 2.0rem;
 	line-height: 1.5;
 }
 
 h6 {
-	font-size: 1.4rem;
+	font-size: 1.9rem;
 	line-height: 1.5;
 }
 
@@ -258,6 +258,15 @@ blockquote {
 	background-color: #171717;
 	padding: 0 1.5rem;
 	margin: 0;
+}
+
+video {
+	width: 100%;
+}
+
+figcaption {
+	font-size: 1.5rem;
+	text-align: center;
 }
 
 table {
