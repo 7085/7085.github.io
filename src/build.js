@@ -27,6 +27,7 @@ markedRenderer.image = function (href, title, text) {
 			return handleMdImage(href, title, text);
 	}
 };
+markedRenderer.link = handleMdLink;
 marked.setOptions({
 	highlight: function(code, lang) {
 		if (!lang || lang === "txt" || lang === "text") {
@@ -74,6 +75,14 @@ function handleMdVideo(href, ext, poster, text) {
 				</video>
 				<figcaption>Video: ${text}</figcaption>
 			</figure>`
+}
+
+function handleMdLink(href, title, text) {
+	if (!absUrlRegex.test(href) && !relativeDirectLinkRegex.test(href)) {
+		href = `/posts/${currentPostId}/${href}`;
+		console.log("DEBUG fixing relative link: "+ href);
+	}
+	return marked.Renderer.prototype.link.call(this, href, title, text);
 }
 
 const ROOT = path.resolve(__dirname, "..");
