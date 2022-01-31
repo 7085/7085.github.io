@@ -383,6 +383,11 @@ table thead {
 	max-width: 100%;
 }
 
+.post-link-wrapper {
+	font-family: monospace;
+	font-size: 1.8rem;
+}
+
 .post-link-wrapper a {
 	margin-left: 2rem;
 }
