@@ -1,15 +1,21 @@
-const fs = require("fs-extra");
-const marked = require("marked");
-const colors = require("colors");
-const hljs = require("highlight.js");
-const cli = require("commander");
-const path = require("path");
+import fs from "fs-extra";
+import path from "path";
+import { fileURLToPath } from "url";
 
+import { marked } from "marked";
+import hljs from "highlight.js";
+import { Command } from "commander";
+import chalk from "chalk";
+
+const cli = new Command();
 cli.option("-p --post <post_id>", "Transform a single post of the posts directory.");
 cli.option("-a --all", "Rebuild all posts.");
 
 cli.parse(process.argv);
+const clioptions = cli.opts();
 
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const markedRenderer = new marked.Renderer();
 const absUrlRegex = /^[a-z0-9+.-]+:/;
 const relativeDirectLinkRegex = /^[#\/]/;
@@ -98,18 +104,18 @@ let index = {};
 
 startTime = new Date();
 console.log(`Started post transformation at ${startTime.toTimeString().slice(0,8)}.`);
-if (cli.post) {
-	console.log(`Building single post ${cli.post}.`);
+if (clioptions.post) {
+	console.log(`Building single post ${clioptions.post}.`);
 	loadindex();
 
-	const file = BLOGDIR +"/"+ cli.post +"/"+ cli.post +".md";
+	const file = BLOGDIR +"/"+ clioptions.post +"/"+ clioptions.post +".md";
 	fs.pathExists(file, (err, exists) => {
 		if (exists) {
-			transformPost(cli.post, processingFinished);
+			transformPost(clioptions.post, processingFinished);
 		}
 	});
 }
-else if (cli.all) {
+else if (clioptions.all) {
 	/** rebuild all posts, dont load index file */
 	console.log("Building all posts.");
 
@@ -176,10 +182,10 @@ function copyStylesheet () {
 
 	fs.copy(CODE_STYLESHEET, CODE_STYLESHEET_DEST, err => {
 		if (err) {
-			console.log(`[${"FAIL".red}] Copying code stylesheet: ${err.message}`);
+			console.log(`[${chalk.red("FAIL")}] Copying code stylesheet: ${err.message}`);
 		}
 		else {
-			console.log(`[${"OK".green}] Copying code stylesheet.`);
+			console.log(`[${chalk.green("OK")}] Copying code stylesheet.`);
 		}
 	});
 }
@@ -194,13 +200,13 @@ function transformPost(postId, cb) {
 	const file = BLOGDIR +"/"+ postId +"/"+ postId +".md";
 	fs.readFile(file, "utf8", (err, data) => {
 		if (err) {
-			console.log(`[${"FAIL".red}] ${postId}: ${err.message}`);
+			console.log(`[${chalk.red("FAIL")}] ${postId}: ${err.message}`);
 			cb(false);
 			return;
 		}
 
 		if (data === "" || data.length < 3) {
-			console.log(`[${"FAIL".yellow}] ${postId}: ${"Invalid post! Skipping...".yellow}`);
+			console.log(`[${chalk.yellow("FAIL")}] ${postId}: ${chalk.yellow("Invalid post! Skipping...")}`);
 			cb(false);
 			return;
 		}
@@ -211,12 +217,12 @@ function transformPost(postId, cb) {
 		const destination = BLOGDIR_OUTDIR +"/"+ postId +".json";
 		fs.writeFile(destination, postStr, "utf8", (err) => {
 			if (err) {
-				console.log(`[${"FAIL".red}] ${postId}: ${err.message}`);
+				console.log(`[${chalk.red("FAIL")}] ${postId}: ${err.message}`);
 				cb(false);
 				return;
 			}
 
-			console.log(`[${"OK".green}] ${postId}`);
+			console.log(`[${chalk.green("OK")}] ${postId}`);
 			
 			addToIndex(post);
 			cb(true);
@@ -232,11 +238,11 @@ function processingFinished() {
 	const indexStr = JSON.stringify(index);
 	fs.writeFile(POST_INDEX_FILE, indexStr, "utf8", (err) => {
 		if (err) {
-			console.log(`[${"FAIL".red}] Writing index file: ${err.message}`);
+			console.log(`[${chalk.red("FAIL")}] Writing index file: ${err.message}`);
 			throw err;
 		}
 
-		console.log(`[${"OK".green}] Writing index file.`);
+		console.log(`[${chalk.green("OK")}] Writing index file.`);
 	});
 }
 
@@ -273,7 +279,7 @@ function createPost(postId, data) {
 	post.title = data.slice(1, data.indexOf("\n")).trim();
 	post.year = postId.slice(0, 4);
 	post.created = postId.slice(0, 10);
-	post.html = marked(data);
+	post.html = marked.parse(data);
 	post.lastUpdate = "";
 	if (data.indexOf("*Update ") !== -1) {
 		/** use natural sorting of updates: old -> new */

@@ -2,6 +2,7 @@
 	"name": "7085.github.io",
 	"version": "1.0.0",
 	"description": "Personal website and blog.",
+	"type":"module",
 	"main": "src/build.js",
 	"scripts": {
 		"start": "node src/build.js",
@@ -20,10 +21,10 @@
 	},
 	"homepage": "https://github.com/7085/7085.github.io#readme",
 	"dependencies": {
-		"colors": "^1.4.0",
-		"commander": "^6.2.1",
+		"chalk": "^5.0.1",
+		"commander": "^9.1.0",
 		"fs-extra": "^9.0.1",
 		"highlight.js": "^10.5.0",
-		"marked": "^1.2.7"
+		"marked": "^4.0.12"
 	}
 }
