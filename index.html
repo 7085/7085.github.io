@@ -10,7 +10,7 @@
 	<meta name="keywords" content="7085, security, hacking, vulnerability, bug, pentest, ctf, cyber, exploit">
 	<meta name="description" content="Projects and write-ups by 7085 featuring mainly topics and projects about it-security, exploits, vulnerabilities, programming and other computer related stuff.">
 	
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'">
 	<meta http-equiv="X-Content-Type-Options" content="nosniff">
 	<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 	<!-- <meta http-equiv="X-Frame-Options" content="deny"> -->
@@ -24,24 +24,56 @@
 </head>
 
 <body>
-
+	<div class="logo-background-wrapper">
+		<div class="logo-background"></div>
+		<div class="moon"></div>
+	</div>
+	<div class="crt"></div>
 	<div class="body-wrapper">
-		<div class="container-horizontal">
+		<div class="container-horizontal logo-wrapper">
 			<a href="#/home" class="logo-link">
-				<span class="logo">                                       
-@@@@@@@@@   @@@@@@@@    @@@@@@@    @@@@@@@@
-@@@@@@@@@  @@@@@@@@@@  @@@@@@@@@  @@@@@@@@
-      @@!  @@!   @@@@  @@!   @@@  !@@     
-      !@!  !@!  @!@!@  !@!   @!@  !@!     
-      @!!  @!@ @! !@!  !@@@!@@!   !!@@!!! 
-     !!!   !@!!!  !!!  .@!!!!@!   '!!@!!!!
-    !!:    !!:!   !!!  !!:   !!!       !:!
-    :!:    :!:    !:!  :!:   !:!       !:!
-    ::     ::::::: ::  :::::: ::  ::::: ::
-    : :    : : :  :    : :   :   :: :  :  
-				</span>
+				<svg viewBox="0 0 118 40" class="logo-svg" xmlns="http://www.w3.org/2000/svg">
+					<defs>
+						<linearGradient id="grad" gradientTransform="rotate(90)">
+							<!--
+							<stop offset="5%"   stop-color="#ffd700" />
+							<stop offset="50%"  stop-color="#ffc9c4" />
+							<stop offset="51%"  stop-color="#ef4f9a" />
+							<stop offset="80%"  stop-color="#6f2091" />
+							<stop offset="95%"  stop-color="#431294" />
+							
+							<stop offset="32%"  stop-color="#18191a" />
+							<stop offset="40%"  stop-color="#157be6" />
+							<stop offset="52%"  stop-color="#ffffff" />
+							<stop offset="56%"  stop-color="#18191a" />
+							<stop offset="85%"  stop-color="#157be6" />
+							<stop offset="100%" stop-color="#ffffff" />
+							-->
+							<stop offset="0%"  stop-color="#18191a" />
+							<stop offset="15%"  stop-color="#2e0ecd" />
+							<stop offset="50%"  stop-color="#4be2f7" />
+							<stop offset="50%"  stop-color="#151516" />
+							<stop offset="100%" stop-color="#431294" />
+						</linearGradient>
+					</defs>
+					<g fill="transparent" stroke="url(#grad)" stroke-linecap="square" stroke-width="5">
+						<path d="m 10,10 h 20 v 20"  />
+						<path d="m 36,10 h 20 v 20 h -20 z" />
+						<path d="m 62,20 v -10 h 20 v 20 h -20 v -10 h 20" />
+						<path d="m 108,10 h -20 v 10 h 20 v 10 h -20" />
+					</g>
+				</svg>
+				<!--
+					<span class="logo">                                       
+██████████ ██████████ ██████████ ██████████
+        ██ ██      ██ ██      ██ ██
+        ██ ██      ██ ██████████ ██████████
+        ██ ██      ██ ██      ██         ██
+        ██ ██████████ ██████████ ██████████
+					</span>
+				-->
 				<span class="logo-suffix">.at</span>
-			</a>	
+			</a>
 		</div>
 		<div class="container-vertical nav">
 			<ul>
