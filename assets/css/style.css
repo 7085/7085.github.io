@@ -21,6 +21,7 @@ body {
 	max-width: 900px;
     height: 100%;
     min-height: 100%;
+	overflow-x: hidden;
 /* 	scrollbar-width: auto; 
 	scrollbar-color: #eee #111; */
 }
@@ -34,9 +35,9 @@ body {
 	background-color: #111;
 	border: 3px solid #eee;
 }
-@media (max-width: 454px) {
+@media (max-width: 480px) {
 	body {
-		font-size: 1.6rem;
+		font-size: 1.4rem;
 	}
 }
 
@@ -63,12 +64,12 @@ body {
  *****************************************************************************/
 
 a {
-	color: #5f5cff;
+	color: #388bff;
 	text-decoration: none;
-	border-bottom: 1px hidden #5f5cff;
+	border-bottom: 1px hidden #388bff;
 }
 a:hover {
-	border-bottom: 1px solid #5f5cff;
+	border-bottom: 1px solid #388bff;
 	transition: .1s ease-in-out;
 	transition-property: border-style;
 }
@@ -216,6 +217,27 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 3.6rem;
 }
 
+@media (max-width: 480px) {
+	h1 {
+		font-size: 2.2rem;
+	}
+	h2 {
+		font-size: 2.0rem;
+	}
+	h3 {
+		font-size: 1.8rem;
+	}
+	h4 {
+		font-size: 1.7rem;
+	}
+	h5 {
+		font-size: 1.6rem;
+	}
+	h6 {
+		font-size: 1.5rem;
+	}
+}
+
 p, ul, ol, dl, pre {
     margin: 0 0 2.0rem 0;
 }
@@ -241,6 +263,7 @@ pre > code {
 	padding: 1.0rem;
 	overflow: auto;
 	color: #ddd;
+	word-break: normal;
 }
 
 code {
@@ -250,6 +273,7 @@ code {
     padding: 0.22rem 0.18rem;
 	font-size: 92%;
 	color: #42c8e7;
+	word-break: break-word;
 }
 
 blockquote {
@@ -299,7 +323,7 @@ table thead {
 	text-transform: uppercase;
 	text-align: center;
 }
-@media (max-width: 454px) {
+@media (max-width: 480px) {
 	.nav {
 		font-size: 2.0rem;
 	}
@@ -323,7 +347,7 @@ table thead {
 	transition: .1s ease-in-out;
 	transition-property: color,background-color,border-color,border-style;
 }
-@media (max-width: 454px) {
+@media (max-width: 480px) {
 	.nav li a {
 		padding: 1.8rem;
 	}
@@ -381,7 +405,8 @@ table thead {
 	display: block;
 	margin: 0 auto;
 	max-width: 100%;
-	border: 6px solid #6a1d83;
+	border-radius: 3px;
+    border: 8px solid #5f5cff;
     box-sizing: border-box;
 }
 
@@ -398,6 +423,20 @@ table thead {
  * styling
  *****************************************************************************/
 
+.background {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 209px;
+	margin: 0 auto;
+	perspective: 180px;
+	perspective-origin: 50% 40%;
+	background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 59%, rgba(129, 0, 157,0.2) 60%, rgba(0,0,0,0) 75%);
+	z-index: -2;
+}
+
 .logo-background-wrapper {
 	position: absolute;
     top: 0;
@@ -408,7 +447,6 @@ table thead {
 	margin: 0 auto;
 	perspective: 180px;
 	perspective-origin: 50% 40%;
-	background: linear-gradient(#0c141f 40%, #cf33d9 41%, #0c141f 60%, #111111);
 	z-index: -1;
 }
 
@@ -417,17 +455,17 @@ table thead {
 	width: 200%;
     left: -50%;
     height: 100%;
-	background-image: -webkit-linear-gradient(top, #CF33D9 1px, transparent 1px), -webkit-linear-gradient(left, #CF33D9 1px, transparent 1px);
+	background-image: -webkit-linear-gradient(top, #81009d 1px, transparent 1px), -webkit-linear-gradient(left, #81009d 1px, transparent 1px);
 	background-size: 16px 16px, 32px 32px;
 	/*background-position: -1px -1px, -1px -1px;*/
-	transform: rotateX(80deg);
+	transform: rotateX(80.8deg);
 	/*animation: moveUp 1s infinite linear; */
 }
 
 .crt {
 	width: 100%;
 	height: 155px;
-	z-index: 9999;
+	z-index: -2;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -437,22 +475,38 @@ table thead {
 
 .moon {
 	position: absolute;
-	right: 30%;
-	width: 100px;
-	height: 100px;
+	right: calc(50% - 60px);
+    z-index: -2;
+	width: 120px;
+	height: 120px;
 	border-radius: 100%;
 	background-color: gold;
 	background-image: linear-gradient(#ffcbcb,#f7d73e);
-	clip-path: polygon(-50% 0px,150% -50%,150% 55%,-50% 55%,
-	  -50% 62%,150% 62%,150% 70%,0 70%,
-	  -50% 75%,150% 75%,150% 80%,0 80%,
-	  -50% 82%,150% 82%,150% 85%,0 85%,
-	  -50% 87%,150% 87%,150% 90%,0 90%,
-	  -50% 92%,150% 92%,150% 95%,0 95%,
-	  -50% 96%,150% 96%,150% 150%,0 150%);
-	box-shadow: rgba(255 177 99 / 70%) 0px 0px 30px;
-	  
-  }
+	clip-path: polygon(-50% 0px, 150% 0px, 150% 45%, -50% 45%,
+					   -50% 46%, 150% 46%, 150% 52%, -50% 52%, 
+					   -50% 53%, 150% 53%, 150% 59%, -50% 59%, 
+					   -50% 61%, 150% 61%, 150% 67%, -50% 67%, 
+					   -50% 69%, 150% 69%, 150% 75%, -50% 75%, 
+					   -50% 78%, 150% 78%, 150% 84%, -50% 84%, 
+					   -50% 88%, 150% 88%, 150% 94%, -50% 94%, 
+					   -50% 98%, 150% 98%, 150% 150%,-50% 150%);
+	box-shadow: rgba(255 177 99 / 70%) 0px 0px 30px; 
+}
+
+.mountains {
+	position: absolute;
+	right: calc(50% - 300px);
+	z-index: -1;
+	width: 600px;
+	height: 300px;
+	top: -182px;
+	overflow: hidden;
+}
+
+.mountains svg {
+	width: 100%;
+	height: 100%;
+}
 
 .logo-wrapper {
     display: grid;
@@ -461,38 +515,9 @@ table thead {
 	height: 115px;
 }
 
-/*
-.glowy {
-	font-size: 10rem;
-	font-weight: 800;
-	text-transform: uppercase;
-	color: transparent;
-	letter-spacing: -15px;
-  	-webkit-font-smoothing: antialiased;
-}
-.glowy > span {
-	-webkit-text-stroke: 2px #F4C6F4;
-	margin-top: -8px;
-	display: inline-block;
-	padding: 0 1px;
-	animation: glow 2.5s linear infinite;
-}
-
-@keyframes glow {
-	0% {
-	  filter: drop-shadow(0 0 6px #CF33D9) drop-shadow(0 0 6px #CF33D9);
-	}
-	50% {
-	  filter: drop-shadow(0 0 1px #CF33D9) drop-shadow(0 0 1px #CF33D9);
-	}
-	100% {
-	  filter: drop-shadow(0 0 6px #CF33D9) drop-shadow(0 0 6px #CF33D9);
-	}
-}
-*/
-
 .logo-svg {
 	filter: drop-shadow(1px -1px 0 white);
+	width: 440px;
 }
 
 .logo {
@@ -517,15 +542,16 @@ table thead {
 	padding-bottom: 0.8rem;
 	margin: 0 0 1rem -2rem;
 }
-@media (max-width: 690px) {
-	.logo-wrapper {
-		grid-template-columns: 1fr 0.5fr;
-	}
+@media (max-width: 512px) {
 	.logo-suffix {
-		display: none;
+		visibility: hidden;
 	}
 }
-@media (max-width: 454px) {
+@media (max-width: 480px) {
+	.logo-svg {
+		width: 340px;
+		padding-top: 10px;
+	}
 	.logo {
 		font-size: 1.2rem;
 		font-weight: normal;
