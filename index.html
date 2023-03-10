@@ -72,7 +72,7 @@
 		<div class="container-vertical nav">
 			<ul>
 				<li><a href="#/blog">Blog</a></li>
-				<li><a href="#/projects">Projects</a></li>
+				<li><a href="#/vulnerabilities">Vulnerabilities</a></li>
 				<li><a href="#/about">About</a></li>
 			</ul>
 		</div>
@@ -98,96 +98,142 @@
 		<h2>Recent posts:</h2>
 		<ul class="post-link-wrapper"></ul>
 	</template>
-	<template id="template-projects">
-		<h1>Projects</h1>
+
+	<template id="template-vulnerabilities">
+		<h1>Vulnerabilities</h1>
+		This page lists vulnerabilities in public software that I have found.
+		However, for some of them I won't or can't publish the details or a writeup.
 		<h2>Public</h2>
-		<div class="project-wrapper">
+		<div class="vuln-wrapper">
 			<div>
-				<h3>netscan.js</h3>
-				<p>
-					A client side network scanner written in JavaScript.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> JS, HTML
-				</p>
+				<h3>draw.io / diagrams.net</h3>
+				<table>
+					<thead>
+						<tr><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>RCE</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-2014" target="_blank" rel="noopener">CVE-2022-2014</a></td><td><a href="https://huntr.dev/bounties/911a4ada-7fd6-467a-a464-b88604b16ffc/" target="_blank" rel="noopener">Write-up</a></td><td>Multi Vulnerability Chain</td></tr>
+						<tr><td>Stored XSS</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-2015" target="_blank" rel="noopener">CVE-2022-2015</a></td><td><a href="https://huntr.dev/bounties/0d32f448-155c-4b71-9291-9e8bcd522b37/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td>RCE</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-1727" target="_blank" rel="noopener">CVE-2022-1727</a></td><td><a href="https://huntr.dev/bounties/b242e806-fc8c-41c0-aad7-e0c9c37ecdee/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td>SSRF</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-1711" target="_blank" rel="noopener">CVE-2022-1711</a></td><td><a href="https://huntr.dev/bounties/c32afff5-6ad5-4d4d-beea-f55ab4925797/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td>Path traversal</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-1721" target="_blank" rel="noopener">CVE-2022-1711</a></td><td><a href="https://huntr.dev/bounties/000931cc-6d0e-4a4f-b4d8-4ba46ba0e699/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td>LFI+SSRF (dup)</td><td></td><td><a href="https://huntr.dev/bounties/f4b3bb39-6e4b-449f-b5e8-59f4b993e37f/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td>RCE</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-1575" target="_blank" rel="noopener">CVE-2022-1575</a></td><td><a href="https://huntr.dev/bounties/033d3423-eb05-4b53-a747-1bfcba873127/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+					</tbody>
+				</table>
 				<p>
 					<strong>Project-Link:</strong>
-					<a href="https://github.com/7085/netscan.js" target="_blank" rel="noopener">netscan.js</a>
+					<a href="https://www.diagrams.net/" target="_blank" rel="noopener">diagrams.net</a>
+				</p>
+				<p>
+					<strong>Comments:</strong>
+					Very responsive security contact, fast fixes, others should take as an example
 				</p>
 			</div>
 			<div>
-				<h3>This website :)</h3>
+				<h3>Insomnia Desktop App</h3>
+				<table>
+					<thead>
+						<tr><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>RCE 4</td><td></td><td><a href="/#/blog/2020-12-30-rce-vulnerabilities-in-insomnia-discovered:~:text=RCE%20THROUGH%20MISSING%20CONTEXTISOLATION">Write-up</a></td><td></td></tr>
+						<tr><td>RCE 3</td><td></td><td><a href="/#/blog/2020-12-30-rce-vulnerabilities-in-insomnia-discovered:~:text=RCE%20THROUGH%20UNHANDLED%20MIDDLE%20MOUSE%20CLICKS%20AND%20MALICIOUS%20LINKS">Write-up</a></td><td></td></tr>
+						<tr><td>RCE 2</td><td></td><td><a href="/#/blog/2020-12-30-rce-vulnerabilities-in-insomnia-discovered:~:text=RCE%20THROUGH%20INSECURE%20USE%20OF%20SHELL.OPENEXTERNAL()">Write-up</a></td></tr>
+						<tr><td>RCE 1</td><td></td><td><a href="/#/blog/2020-12-30-rce-vulnerabilities-in-insomnia-discovered:~:text=RCE%20THROUGH%20MISSING%20SANITIZATION%20/%20ENCODING%20UPON%20PROJECT%20IMPORT">Write-up</a></td><td></td></tr>
+					</tbody>
+				</table>
 				<p>
-					A simple blog and personal website.
+					<strong>Project-Link:</strong>
+					<a href="https://insomnia.rest/" target="_blank" rel="noopener">Insomnia</a>
 				</p>
+			</div>
+			<div>
+				<h3>Obsidian Desktop App</h3>
+				<table>
+					<thead>
+						<tr><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>RCE 3</td><td></td><td><a href="/#/blog/2022-02-03-rce-vulnerabilities-in-obsidian-discovered:~:text=IFRAME%20SANDBOX%20BYPASS%20AND%20PATH%20TRAVERSAL%20TO%20RCE">Write-up</a></td><td>Multi Vulnerability Chain</td></tr>
+						<tr><td>RCE 2</td><td></td><td><a href="/#/blog/2022-02-03-rce-vulnerabilities-in-obsidian-discovered:~:text=URL%20SANITIZATION%20BYPASS%20WITH%20MATHJAX%20TO%20RCE">Write-up</a></td><td></td></tr>
+						<tr><td>RCE 1</td><td></td><td><a href="/#/blog/2022-02-03-rce-vulnerabilities-in-obsidian-discovered:~:text=UNSAFE%20LINK%20HANDLING%20TO%20RCE">Write-up</a></td><td></td></tr>
+					</tbody>
+				</table>
 				<p>
-					<strong>Used technologies:</strong> JS, HTML, CSS
+					<strong>Project-Link:</strong>
+					<a href="https://obsidian.md/" target="_blank" rel="noopener">Obsidian</a>
 				</p>
+			</div>
+			<div>
+				<h3>PlantUML (Library)</h3>
+				<table>
+					<thead>
+						<tr><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>Sandbox Bypass</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-1379" target="_blank" rel="noopener">CVE-2022-1379</a></td><td><a href="https://huntr.dev/bounties/0d737527-86e1-41d1-9d37-b2de36bc063a/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td>Stored XSS</td><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-1231" target="_blank" rel="noopener">CVE-2022-1231</a></td><td><a href="https://huntr.dev/bounties/27db9509-6cd3-4148-8d70-5942f3837604/" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+					</tbody>
+				</table>
+				<p>
+					<strong>Project-Link:</strong>
+					<a href="http://www.plantuml.com/" target="_blank" rel="noopener">PlantUML</a>
+				</p>
+			</div>
+			<div>
+				<h3>Wordpress Plugins</h3>
+				<table>
+					<thead>
+						<tr><th>Plugin</th><th>Popularity</th><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td><a href="https://wordpress.org/plugins/events-manager/" target="_blank" rel="noopener">Events Manager</a></td><td>Installs: 100,000+</td><td>Stored XSS</td><td><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16523" target="_blank" rel="noopener">CVE-2019-16523</a></td><td><a href="https://github.com/sbaresearch/advisories/tree/public/2019/SBA-ADV-20190913-03_WordPress_Plugin_Events_Manager" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td><a href="https://wordpress.org/plugins/eu-cookie-law/" target="_blank" rel="noopener">EU Cookie Law</a></td><td>Installs: 100,000+</td><td>Stored XSS</td><td><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16522" target="_blank" rel="noopener">CVE-2019-16522</a></td><td><a href="https://github.com/sbaresearch/advisories/tree/public/2019/SBA-ADV-20190913-01_WordPress_Plugin_EU_Cookie_Law" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td><a href="https://wordpress.org/plugins/broken-link-checker/" target="_blank" rel="noopener">Broken Link Checker</a></td><td>Installs: 700,000+</td><td>Stored XSS</td><td><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16521" target="_blank" rel="noopener">CVE-2019-16521</a></td><td><a href="https://github.com/sbaresearch/advisories/tree/public/2019/SBA-ADV-20190913-02_WordPress_Plugin_Broken_Link_Checker" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+						<tr><td><a href="https://wordpress.org/plugins/all-in-one-seo-pack/" target="_blank" rel="noopener">All in One SEO Pack</a></td><td>Installs: 2,000,000+</td><td>Stored XSS</td><td><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16520" target="_blank" rel="noopener">CVE-2019-16520</a></td><td><a href="https://github.com/sbaresearch/advisories/tree/public/2019/SBA-ADV-20190913-04_WordPress_Plugin_All_in_One_SEO_Pack" target="_blank" rel="noopener">Write-up</a></td><td></td></tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<p></p>
-		<h2>Private / Unreleased</h2>
-		<div class="project-wrapper">
+		<h2>Confidential</h2>
+		<div class="vuln-wrapper">
 			<div>
-				<h3>AUnlock</h3>
+				<h3>Rocket Chat</h3>
+				<table>
+					<thead>
+						<tr><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>Stored XSS</td><td></td><td></td><td></td></tr>
+						<tr><td>DoS</td><td></td><td></td><td>One Request Server Crash</td></tr>
+					</tbody>
+				</table>
 				<p>
-					A command line tool that is able to unlock game achievements of any game of the Steam gaming platform.
-					Many game devs are lazy and don't care fixing broken or unobtainable achievements, with AUnlock this is not a problem any more.
-					It can be run on both Windows and Linux natively.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> C, C++, Steam API
+					<strong>Project-Link:</strong>
+					<a href="https://www.rocket.chat/" target="_blank" rel="noopener">Rocket Chat</a>
 				</p>
 			</div>
 			<div>
-				<h3>FOXSS</h3>
+				<h3>Zulip</h3>
+				<table>
+					<thead>
+						<tr><th>Type</th><th>CVE</th><th>Writeup</th><th>Notes</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>Stored XSS (dup)</td><td></td><td></td><td></td></tr>
+						<tr><td>RCE</td><td></td><td></td><td></td></tr>
+					</tbody>
+				</table>
 				<p>
-					A fully automated XSS vulnerability scanner using static and dynamic analysis and achieving 
-					zero false positives by automated exploit generation and verification. It was developed 
-					for my masters thesis.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> JS, HTML, CSS, Electron
-				</p>
-			</div>
-			<div>
-				<h3>CG</h3>
-				<p>
-					A rendering engine for 2D/3D games or graphics demos, including audio, physics, in-game console, etc.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> C++, OpenGL
-				</p>
-			</div>
-			<div>
-				<h3>PWM</h3>
-				<p>
-					A simple password / notes manager.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> JS, HTML, CSS, Electron
-				</p>
-			</div>
-			<div>
-				<h3>Bitset</h3>
-				<p>
-					Implementation of a highly optimized bitset datastructure.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> C, hardware &amp; vector instructions
-				</p>
-			</div>
-			<div>
-				<h3>PHP Web Framework</h3>
-				<p>
-					A simple but efficient framework for building PHP-based websites including routing and templating.
-				</p>
-				<p>
-					<strong>Used technologies:</strong> PHP
+					<strong>Project-Link:</strong>
+					<a href="https://zulip.com/" target="_blank" rel="noopener">Zulip</a>
 				</p>
 			</div>
 		</div>
 	</template>
+
 	<template id="template-about">
 		<h1>About</h1>
 		<p>Hi, my name is Tobias or short "Tobs" as many call me.</p>
@@ -206,11 +252,11 @@
 		<h2>Short CV</h2>
 		<div class="cv-wrapper">
 			<div>2020 - &nbsp;now</div>
-			<div>IT security analyst &amp; penetration tester at <a href="https://rise-world.com/" target="_blank" rel="noopener">RISE</a></div>
+			<div>Cyber Security Analyst &amp; Penetration Tester at <a href="https://rise-world.com/" target="_blank" rel="noopener">RISE</a></div>
 			<div>2019      </div>
 			<div>Certification: <strong>Offensive Security Certified Professional (OSCP)</strong></div>
 			<div>2018 - 2020</div>
-			<div>IT security analyst &amp; penetration tester at <a href="https://sba-research.org" target="_blank" rel="noopener">SBA Research</a></div>
+			<div>Cyber Security Analyst &amp; Penetration Tester at <a href="https://sba-research.org" target="_blank" rel="noopener">SBA Research</a></div>
 			<div>2014 - 2018</div>
 			<div>
 				<strong>Diplomingenieur (DI) / MSc</strong> in <em>Software Engineering &amp; Internet Computing</em>, TU Wien. <br />
@@ -227,12 +273,15 @@
 			<div>AHS <strong>Matura</strong>, Bundesgymnasium Wieselburg</div>
 		</div>
 	</template>
+
 	<template id="template-blog">
-		<h1>Posts</h1>
+		<h1>Blog</h1>
 	</template>
+
 	<template id="template-blog-entry">
 		<div class="blog-entry"></div>
 	</template>
+
 	<template id="template-error">
 		<h1>Error</h1>
 		<p></p>

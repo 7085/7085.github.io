@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
 	initEnv();
-
 	initTemplates();
 
 	get(apiEndpoint +"index.json", data => {
@@ -38,12 +37,11 @@ function initEnv() {
 			x.open("GET", url);
 			x.responseType = "json";
 			x.onload = function() {
-				if (x.status !== "200") {
+				if (x.status !== 200) {
 					console.error(`Request (${x.status}): ${x.statusText}`);
 					cb(null);
 					return;
 				}
-
 				cb(x.response);
 			};
 			x.onerror = function() {
@@ -60,7 +58,6 @@ function initEnv() {
 				if (!response.ok) {
 					throw new Error(`(${response.status}): ${response.statusText}`);
 				}
-
 				return response.json();
 			})
 			.then(data => {
@@ -76,7 +73,6 @@ function initEnv() {
 
 function initTemplates() {
 	insertionPoint = document.querySelector("#content-container");
-
 	const templateNodes = document.querySelectorAll("template");
 	for (let templateNode of templateNodes) {
 		templates[templateNode.id.replace("template-", "")] = templateNode;
@@ -91,8 +87,8 @@ function navigationHandler() {
 	const clientPath = window.location.hash;
 	const [ , category, entry] = clientPath.split("/");
 	switch (category) {
-		case "projects":
-			loadPageProjects();
+		case "vulnerabilities":
+			loadPageVulnerabilities();
 			break;
 
 		case "about":
@@ -109,15 +105,18 @@ function navigationHandler() {
 	}
 }
 
-function loadPageProjects() {
-	const htmlContent = getTemplate("projects");
-
+function loadPageVulnerabilities() {
+	const htmlContent = getTemplate("vulnerabilities");
 	updatePage(htmlContent);
 }
 
+// function loadPageProjects() {
+// 	const htmlContent = getTemplate("projects");
+// 	updatePage(htmlContent);
+// }
+
 function loadPageAbout() {
 	const htmlContent = getTemplate("about");
-
 	updatePage(htmlContent);
 }
 
@@ -162,14 +161,12 @@ function loadPageBlog(entry) {
 
 function loadPageIndex() {
 	const htmlContent = getTemplate("index");
-
 	const lastPosts = getLastPosts(5);
 	const list = htmlContent.querySelector(".post-link-wrapper");
 	for (let post of lastPosts) {
 		const li = createLinkToPost(post);
 		list.appendChild(li);
 	}
-
 	updatePage(htmlContent);
 }
 
@@ -177,7 +174,6 @@ function updatePage(content) {
 	while (insertionPoint.hasChildNodes()) {
 		insertionPoint.lastChild.remove();
 	}
-
 	insertionPoint.appendChild(content);
 }
 
