@@ -241,12 +241,11 @@ h1, h2, h3, h4, h5, h6 {
 p, ul, ol, dl, pre {
     margin: 0 0 2.0rem 0;
 }
-
-/* 
-*+p, *+ul, *+ol, *+dl, *+pre {
-    margin-top: 20px;
+ 
+p+ul, p+ol, p+dl, p+pre {
+    margin-top: -2.0rem;
 }
-*/
+
 
 hr {
 	box-sizing: content-box;
@@ -595,15 +594,6 @@ table thead {
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 	text-fill-color: transparent;
-}
-.logo-suffix {
-	padding-bottom: 0.8rem;
-	margin: 0 0 1rem -2rem;
-}
-@media (max-width: 512px) {
-	.logo-suffix {
-		visibility: hidden;
-	}
 }
 @media (max-width: 480px) {
 	.logo-svg {
